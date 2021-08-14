@@ -1,0 +1,14 @@
+@props(['name' => '', 'stat' => '', 'color' => 'gray', 'span' => '1'])
+<div class="bg-gray-100 dark:bg-gray-700 flex items-center justify-center 
+        mb-4 p-2 rounded-lg shadow-xs col-span-{{ $span }}">
+    <div>
+        <p class="text-md font-semibold text-gray-500 dark:text-gray-400 text-center">
+            {{ $name }}
+        </p>
+        <p class="dark:text-{{ $color }}-200 font-normal 
+            text-{{ $color }}-600 text-lg text-center"
+        >
+           {{ $slot }}
+        </p>
+    </div>
+</div>

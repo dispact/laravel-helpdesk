@@ -1,0 +1,1 @@
+<x-forms.select :label="$label" :items="$buildings" :id="$id"/>
