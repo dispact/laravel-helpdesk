@@ -57,7 +57,7 @@ function data() {
       },
       isEditStaffMenuOpen: false,
       toggleEditStaffMenu() {
-        this.isEditUserMenuOpen = !this.isEditUserMenuOpen
+        this.isEditStaffMenuOpen = !this.isEditStaffMenuOpen
       },
       // Modal
       isModalOpen: false,
