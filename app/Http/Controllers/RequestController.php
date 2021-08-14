@@ -9,6 +9,8 @@ use App\Models\Message;
 use App\Models\Building;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\BuildingStaff;
+use App\Models\CategoryStaff;
 
 
 class RequestController extends Controller
@@ -49,9 +51,13 @@ class RequestController extends Controller
         ]);
 
         $status = Status::where('name', 'Open')->first();
-        $staff = Staff::where('building_id', $request->building)
-            ->where('category_id', $request->category)
-            ->pluck('id');
+        $staff = BuildingStaff::with(['CategoryStaff' => function($query) {
+            $query->where('category_id', $request->category);
+        }])->where('building_id', $request->building)
+            ->pluck('staff_id');
+        // $staff = BuildingStaff::where('building_id', $request->building)
+        //     ->where('category_id', $request->category)
+        //     ->pluck('id');
 
         $ticket = Ticket::create([
             'title' => $request->subject,
