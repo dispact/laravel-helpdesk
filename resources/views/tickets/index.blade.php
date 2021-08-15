@@ -9,7 +9,7 @@
         <x-staff-dropdown/>
     </div>
     
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-6">
+    <div class="max-w-7xl sm:px-6 lg:px-8 pb-6">
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
