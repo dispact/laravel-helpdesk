@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Filters;
 
 use App\Models\Staff;
 use App\Models\Building;
@@ -15,7 +15,7 @@ class BuildingDropdown extends Component
         else
             $currentBuilding = null;
 
-        return view('components.building-dropdown', [
+        return view('components.filters.building-dropdown', [
             'buildings' => Building::all(),
             'currentBuilding' => $currentBuilding,
             'currentStaffBuilding' => Staff::firstWhere('user_id', auth()->user()->id)

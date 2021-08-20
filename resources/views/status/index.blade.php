@@ -62,8 +62,8 @@
             @endif
         </div>
         {{ $statuses->links() }}
-        <x-create-status/>
-        <x-edit-status/>
+        <x-modals.create-status/>
+        <x-modals.edit-status/>
     </div>
 </x-app-layout>
 

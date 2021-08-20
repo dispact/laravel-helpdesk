@@ -6,14 +6,15 @@
         Helpdesk
     </a>
     <ul class="mt-6">
-        <x-nav.side-nav-link title="My Tickets" icon="ticket" active="{{ request()->routeIs('requests.index') }}"
-            link="{{ route('requests.index') }}"
-        />
         @if (auth()->user()->is_staff())
-            <x-nav.side-nav-link title="Dashboard" icon="ticket" active="{{ request()->routeIs('tickets.index') }}"
+            <x-nav.side-nav-link title="Tickets" icon="ticket" active="{{ request()->routeIs('tickets.index') }}"
                 link="{{ route('tickets.index') }}"
             />
             <x-nav.management/>
+        @else
+        <x-nav.side-nav-link title="My Tickets" icon="ticket" active="{{ request()->routeIs('requests.index') }}"
+            link="{{ route('requests.index') }}"
+        />
         @endif
     </ul>
     <div class="px-6 my-6">

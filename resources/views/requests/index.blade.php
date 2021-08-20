@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="ml-3 md:ml-6">
-        <x-status-dropdown/> 
+        <x-filters.status-dropdown/> 
     </div>
     
     <div class="max-w-7xl sm:px-6 lg:px-8 pb-6">

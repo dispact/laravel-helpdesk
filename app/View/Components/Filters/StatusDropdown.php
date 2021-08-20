@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Filters;
 
 use App\Models\Status;
 use Illuminate\View\Component;
@@ -15,7 +15,7 @@ class StatusDropdown extends Component
         else
             $currentStatus = null;
             
-        return view('components.status-dropdown', [
+        return view('components.filters.status-dropdown', [
             'statuses' => Status::all(),
             'currentStatus' => $currentStatus
         ]);
