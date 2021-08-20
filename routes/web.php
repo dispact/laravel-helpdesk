@@ -38,6 +38,7 @@ Route::middleware([StaffOnly::class, 'auth'])->group(function() {
     require __DIR__.'/category.php';
     require __DIR__.'/staff.php';
     require __DIR__.'/users.php';
+    require __DIR__.'/status.php';
 });
 
 require __DIR__.'/requests.php';

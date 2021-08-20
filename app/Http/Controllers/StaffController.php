@@ -12,7 +12,8 @@ class StaffController extends Controller
 {
     public function index() {
         return view('staff.index', [
-            'staff' => Staff::latest()
+            'allStaff' => Staff::latest()
+            ->with(['buildings', 'categories', 'user'])
             ->paginate(10)
         ]);
     }
@@ -34,7 +35,6 @@ class StaffController extends Controller
 
             return response()->json(['msg' => 'Staff created!'], 200);
         } catch (\exception $e) {
-            dd($e);
             return response()->json(['msg' => 'Error creating staff'], 400);
         }
     }

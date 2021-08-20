@@ -25,7 +25,14 @@ class Ticket extends Model
             )
         );
 
-        $query->when($filters['status'] ?? '1,2', fn($query, $status) =>
+        if (array_key_exists('status', $filters)) {
+            if ($filters['status'] === 'all')
+                $stat = false;
+            else
+                $stat = $filters['status'];
+        }
+
+        $query->when($stat ?? '1,2', fn($query, $status) =>
             $query->whereHas('status', fn($query) => 
                 $query->whereIn('id', explode(',', $status))
             )
@@ -83,6 +90,6 @@ class Ticket extends Model
     }
 
     public function staff() {
-        return $this->belongsToMany(Staff::class);
+        return $this->belongsToMany(Staff::class)->using(StaffTicket::class);
     }
 }

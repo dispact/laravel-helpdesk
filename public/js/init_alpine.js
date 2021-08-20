@@ -59,6 +59,14 @@ function data() {
       toggleEditStaffMenu() {
         this.isEditStaffMenuOpen = !this.isEditStaffMenuOpen
       },
+      isCreateStatusMenuOpen: false,
+      toggleCreateStatusMenu() {
+        this.isCreateStatusMenuOpen = !this.isCreateStatusMenuOpen
+      },
+      isEditStatusMenuOpen: false,
+      toggleEditStatusMenu() {
+        this.isEditStatusMenuOpen = !this.isEditStatusMenuOpen
+      },
       // Modal
       isModalOpen: false,
       trapCleanup: null,

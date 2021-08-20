@@ -24,6 +24,6 @@ class Building extends Model
     }
 
     public function staff() {
-        return $this->belongsToMany(Staff::class);
+        return $this->belongsToMany(Staff::class)->using(BuildingStaff::class);
     }
 }

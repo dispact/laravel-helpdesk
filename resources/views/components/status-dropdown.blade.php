@@ -8,13 +8,13 @@
         @php
             $dropdownTitle = '';
             if (isset($currentStatus)) {
-                if ($currentStatus->count() > 1 && $currentStatus->count() != 3) {
+                if ($currentStatus->count() > 1 && $currentStatus->count() != $statuses->count()) {
                     foreach($currentStatus as $key => $status)
                         if ($key == $currentStatus->count() - 1)
                             $dropdownTitle .= $status->name;
                         else
                             $dropdownTitle .= $status->name . ' & ';
-                } else if ($currentStatus->count() === 3)
+                } else if ($currentStatus->count() === $statuses->count())
                     $dropdownTitle = 'All';
                 else
                     $dropdownTitle = $currentStatus[0]->name;
@@ -30,12 +30,26 @@
             $link = '?' . http_build_query(request()->except('status'));
         else 
             $link = '?' . http_build_query(request()->except('status')) . '&';
+
+        $all = '';
+        foreach($statuses as $v)
+            if ($v == $statuses->last())
+                $all .= $v->id;
+            else
+                $all .= $v->id . ',';
+        
     @endphp
 
-    <x-dropdown-item href="{{ $link }}status=1,2,3" 
-        :active="request('status') === null"
+    <x-dropdown-item href="{{ $link }}status={{ $all }}" 
+        :active="request('status') === $all"
     >
         All
+    </x-dropdown-item>
+
+    <x-dropdown-item href="{{ $link }}" 
+        :active="request('status') === null"
+    >
+        Open & Pending
     </x-dropdown-item>
 
     @foreach($statuses as $status)

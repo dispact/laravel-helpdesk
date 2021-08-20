@@ -64,8 +64,8 @@
                             </td>
 
                             <td class="px-4 py-3 text-xs max-w-sm text-center">
-                                <span class="px-2 py-1 font-semibold leading-tight text-{{ $ticket->status->color }}-700 
-                                    bg-{{ $ticket->status->color }}-100 rounded-full dark:bg-{{ $ticket->status->color }}-700 dark:text-{{ $ticket->status->color }}-100"
+                                <span class="px-2 py-1 font-semibold leading-tight text-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-700 
+                                    bg-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-100 rounded-full dark:bg-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-700 dark:text-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-100"
                                 >
                                     {{ $ticket->status->name }}
                                 </span>

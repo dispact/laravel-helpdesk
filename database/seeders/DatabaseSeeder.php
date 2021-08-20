@@ -33,15 +33,15 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Status::factory()->create([
             'name' => 'Open',
-            'color' => 'green'
+            'color' => '0'
         ]);
         \App\Models\Status::factory()->create([
             'name' => 'Pending',
-            'color' => 'orange'
+            'color' => '1'
         ]);
         \App\Models\Status::factory()->create([
             'name' => 'Closed',
-            'color' => 'red'
+            'color' => '2'
         ]);
         $staff = \App\Models\Staff::factory()->create([
             'user_id' => '1',

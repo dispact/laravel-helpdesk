@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        @foreach($staff as $staff)
+                        @foreach($allStaff as $staff)
                         <tr id="{{ $staff->id }}" class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 dark:text-gray-200 flex items-center text-sm">
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -71,14 +71,14 @@
                     </tbody>
                 </table>
             </div>
-            @if (!$staff->count())
+            @if (!$allStaff->count())
                 <tr>
                     <p class="dark:text-gray-300 text-center mt-4 font-medium
                         text-gray-600">No staff members available</p>
                 </tr>
             @endif
         </div>
-        {{-- {{ $staff->links() }} --}}
+        {{ $allStaff->links() }}
         <x-edit-staff/>
     </div>
 </x-app-layout>

@@ -27,7 +27,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-6 ml-3 ">
         
         <div class="grid gap-4 grid-cols-4 md:grid-cols-8">
-            <x-cards.ticket-stat name="Status" color="{{ $ticket->status->color }}">
+            <x-cards.ticket-stat name="Status" color="{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}">
                 {{ $ticket->status->name }}
             </x-cards.ticket-stat>
             <x-cards.ticket-stat name="Category">{{ $ticket->category->name }}</x-cards.ticket-stat>

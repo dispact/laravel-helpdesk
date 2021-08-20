@@ -1,14 +1,15 @@
+
 <x-app-layout>
     <x-slot name="header">
-        {{ __('Manage Buildings') }} 
+        {{ __('Manage Status') }} 
         <button class="text-green-500 hover:text-green-700
             dark:text-green-400 dark:hover:text-green-300"
-            onClick="createBuilding()">
+            @click="toggleCreateStatusMenu()">
             <x-icons.icon name="action-create"/>
         </button>
     </x-slot>
-    
-    <div class="max-w-4xl -ml-3 sm:px-6 lg:px-8 pb-6">
+
+    <div class="max-w-3xl ml-3 md:-ml-3 sm:px-6 lg:px-8 pb-6">
         <div class="w-full mb-8 overflow-hidden rounded-lg shadow-xs">
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
@@ -18,24 +19,33 @@
                             bg-gray-50 dark:text-gray-500 dark:bg-gray-800"
                         >
                             <th class="px-4 py-3 text-center">Name</th>
+                            <th class="px-4 py-3 text-center">Color</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        @foreach($buildings as $building)
-                        <tr id="{{ $building->id }}" class="text-gray-700 dark:text-gray-400">
+                        @foreach($statuses as $status)
+                        <tr id="{{ $status->id }}" class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 text-sm text-center dark:text-gray-200">
-                                {{ $building->name }}
+                                <span class="px-2 py-1 font-semibold leading-tight text-{{ $status->getStatusColorAttribute($status->color) }}-700 
+                                    bg-{{ $status->getStatusColorAttribute($status->color) }}-100 rounded-full dark:bg-{{ $status->getStatusColorAttribute($status->color) }}-700 dark:text-{{ $status->getStatusColorAttribute($status->color) }}-100"
+                                >
+                                    {{ ucwords($status->name) }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center dark:text-gray-200">
+                                {{ $status->getStatusColorAttribute($status->color) }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center space-x-4 dark:text-gray-200">
                                 <button class="text-orange-500 hover:text-orange-700 
                                     dark:text-orange-400 dark:hover:text-orange-300"
-                                    onClick="updateBuilding({{ $building->id }})">
+                                    @click="toggleEditStatusMenu()"
+                                    onClick="updateModal({{ $status->id }})">
                                     <x-icons.icon name="action-edit"/>
                                 </button>
                                 <button class="text-red-500 hover:text-red-700
                                     dark:text-red-400 dark:hover:text-red-300"
-                                    onClick="deleteBuilding({{ $building->id }})">
+                                    onClick="deleteStatus({{ $status->id }})">
                                     <x-icons.icon name="action-delete"/>
                                 </button>
                             </td>
@@ -44,81 +54,37 @@
                     </tbody>
                 </table>
             </div>
-            @if (!$buildings->count())
+            @if (!$statuses->count())
                 <tr>
                     <p class="dark:text-gray-300 text-center mt-4 font-medium
-                        text-gray-600">No buildings available</p>
+                        text-gray-600">No statuses available</p>
                 </tr>
             @endif
         </div>
-        {{ $buildings->links() }}
+        {{ $statuses->links() }}
+        <x-create-status/>
+        <x-edit-status/>
     </div>
-
 </x-app-layout>
+
 <script>
-function createBuilding() {
-    Swal.fire({
-        title: 'Create building',
-        input: 'text',
-        showCancelButton: true,
-        confirmButtonText: 'Create',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('buildings.store') }}",
-                data: { 
-                    '_token': '@php echo csrf_token(); @endphp',
-                    'name': result.value, 
-                },
-                dataType: 'json',
-                success: function(response) {
-                    swal_success(response['msg']);
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
-                },
-                error: function(response) {
-                    swal_error(response.responseJSON['msg']);
-                }
-            })
-        }
-    })
+function updateModal(id) {
+    var name = $('tr[id='+id+']').find('td:nth-child(1)').text().trim();
+    var color = $('tr[id='+id+']').find('td:nth-child(2)').text().trim();
+    Array.from(document.querySelector("#edit-color").options).forEach(function(option) {
+        option.selected = false;
+
+        let text = option.text;
+
+        if (color.includes(text))
+            option.selected = true;
+    });
+
+    $('#status_id').val(id);
+    $('#edit-name').val(name);
 }
 
-function updateBuilding(id) {
-    Swal.fire({
-        title: 'Update building name',
-        input: 'text',
-        inputValue: $('tr[id='+id+']').find('td:first').text().trim(),
-        showCancelButton: true,
-        confirmButtonText: 'Update',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('buildings.update') }}",
-                data: { 
-                    '_token': '@php echo csrf_token(); @endphp',
-                    'name': result.value, 
-                    'building_id': id,
-                },
-                dataType: 'json',
-                success: function(response) {
-                    swal_success(response['msg']);
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
-                },
-                error: function(response) {
-                    swal_error(response.responseJSON['msg']);
-                }
-            })
-        }
-    })
-}
-
-function deleteBuilding(id) {
+function deleteStatus(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to reverse this!",
@@ -131,10 +97,10 @@ function deleteBuilding(id) {
         if (result.isConfirmed) {
             $.ajax({
                 method: 'POST',
-                url: "{{ route('buildings.destroy') }}",
+                url: "{{ route('status.destroy') }}",
                 data: { 
                     '_token': '@php echo csrf_token(); @endphp',
-                    'building_id': id,
+                    'status': id,
                 },
                 dataType: 'json',
                 success: function(response) {
