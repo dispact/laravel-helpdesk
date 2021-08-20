@@ -1,4 +1,4 @@
-<x-dropdown>
+<x-filters.dropdown>
     
     <x-slot name="label">
         Building
@@ -23,19 +23,19 @@
         {{ $title }}
     </x-slot>
 
-    <x-dropdown-item href="{{ $link }}?building=all" 
+    <x-filters.dropdown-item href="{{ $link }}?building=all" 
         :active="request('building') === 'all'"
     >
         All
-    </x-dropdown-item>
+    </x-filters.dropdown-item>
 
     @foreach($buildings as $building)
-        <x-dropdown-item 
+        <x-filters.dropdown-item 
             href="{{ $link }}?building={{ $building->id }}"
             :active="($building->id == $currentStaffBuilding->id && request('building') == null) || (request('building') == $building->id)"
         >
             {{ ucwords($building->name) }}
-        </x-dropdown-item>
+        </x-filters.dropdown-item>
     @endforeach
 
-</x-dropdown>
+</x-filters.dropdown>

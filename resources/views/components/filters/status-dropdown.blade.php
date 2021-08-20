@@ -1,4 +1,4 @@
-<x-dropdown>
+<x-filters.dropdown>
     
     <x-slot name="label">
         Status
@@ -40,25 +40,25 @@
         
     @endphp
 
-    <x-dropdown-item href="{{ $link }}status={{ $all }}" 
+    <x-filters.dropdown-item href="{{ $link }}status={{ $all }}" 
         :active="request('status') === $all"
     >
         All
-    </x-dropdown-item>
+    </x-filters.dropdown-item>
 
-    <x-dropdown-item href="{{ $link }}" 
+    <x-filters.dropdown-item href="{{ $link }}" 
         :active="request('status') === null"
     >
         Open & Pending
-    </x-dropdown-item>
+    </x-filters.dropdown-item>
 
     @foreach($statuses as $status)
-        <x-dropdown-item 
+        <x-filters.dropdown-item 
             href="{{ $link }}status={{ $status->id }}"
             :active="request('status') == $status->id"
         >
             {{ ucwords($status->name) }}
-        </x-dropdown-item>
+        </x-filters.dropdown-item>
     @endforeach
 
-</x-dropdown>
+</x-filters.dropdown>
