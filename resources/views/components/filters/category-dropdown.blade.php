@@ -1,4 +1,4 @@
-<x-dropdown>
+<x-filters.dropdown>
     
     <x-slot name="label">
         Category
@@ -15,19 +15,19 @@
         {{ isset($currentCategory) ? ucwords($currentCategory->name) : 'All' }}
     </x-slot>
 
-    <x-dropdown-item href="{{ $link }}" 
+    <x-filters.dropdown-item href="{{ $link }}" 
         :active="request('category') === null"
     >
         All
-    </x-dropdown-item>
+    </x-filters.dropdown-item>
 
     @foreach($categories as $category)
-        <x-dropdown-item 
+        <x-filters.dropdown-item 
             href="{{ $link }}category={{ $category->id }}"
             :active="request('category') == $category->id"
         >
             {{ ucwords($category->name) }}
-        </x-dropdown-item>
+        </x-filters.dropdown-item>
     @endforeach
 
-</x-dropdown>
+</x-filters.dropdown>
