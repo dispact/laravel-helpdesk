@@ -79,7 +79,7 @@
             @endif
         </div>
         {{ $allStaff->links() }}
-        <x-edit-staff/>
+        <x-modals.edit-staff/>
     </div>
 </x-app-layout>
 <script>

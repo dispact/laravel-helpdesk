@@ -75,8 +75,8 @@
             @endif
         </div>
         {{ $users->links() }}
-        <x-create-user/>
-        <x-edit-user/>
+        <x-modals.create-user/>
+        <x-modals.edit-user/>
     </div>
 </x-app-layout>
 

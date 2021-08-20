@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Filters;
 
 use App\Models\Category;
 use Illuminate\View\Component;
@@ -15,7 +15,7 @@ class CategoryDropdown extends Component
             $currentCategory = null;
         }
         
-        return view('components.category-dropdown', [
+        return view('components.filters.category-dropdown', [
             'categories' => Category::all(),
             'currentCategory' => $currentCategory
         ]);
