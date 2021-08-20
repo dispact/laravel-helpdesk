@@ -17,19 +17,15 @@
                             text-gray-400 uppercase border-b dark:border-gray-700 
                             bg-gray-50 dark:text-gray-500 dark:bg-gray-800"
                         >
-                            <th class="px-4 py-3">Name</th>
-                            <th class="px-4 py-3 text-center">Updated</th>
+                            <th class="px-4 py-3 text-center">Name</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         @foreach($categories as $category)
                         <tr id="{{ $category->id }}" class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm dark:text-gray-200">
-                                {{ $category->name }}
-                            </td>
                             <td class="px-4 py-3 text-sm text-center dark:text-gray-200">
-                                {{ $category->updated_at->diffForHumans() }}
+                                {{ $category->name }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center space-x-4 dark:text-gray-200">
                                 <button class="text-orange-500 hover:text-orange-700 

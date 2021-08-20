@@ -55,9 +55,6 @@ class RequestController extends Controller
             $query->where('category_id', $request->category);
         }])->where('building_id', $request->building)
             ->pluck('staff_id');
-        // $staff = BuildingStaff::where('building_id', $request->building)
-        //     ->where('category_id', $request->category)
-        //     ->pluck('id');
 
         $ticket = Ticket::create([
             'title' => $request->subject,

@@ -12,6 +12,7 @@ class UserController extends Controller
     public function index() {
         return view('users.index', [
             'users' => User::latest()
+                ->with(['building'])
                 ->filter(request(['search']))
                 ->paginate(10)
         ]);

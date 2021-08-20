@@ -16,19 +16,18 @@
             <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-blue-500">
-                    <div class="absolute inset-y-0 flex items-center pl-2">
-                        <x-icons.icon name="search"/>
-                    </div>
                     @if (request()->routeIs('buildings.index'))
                         <x-nav.search type="buildings"/>
                     @elseif (request()->routeIs('categories.index'))
                         <x-nav.search type="categories"/>
-                    @elseif (request()->routeIs('staff.index'))
-                        <x-nav.search type="staff"/>
+                    @elseif (request()->routeIs('tickets.index'))
+                        <x-nav.search type="tickets"/>
                     @elseif (request()->routeIs('users.index'))
                         <x-nav.search type="users"/>
-                    @else
-                        <x-nav.search type="tickets"/>
+                    @elseif (request()->routeIs('requests.index'))
+                        <x-nav.search type="requests"/>
+                    @elseif (request()->routeIs('status.index'))
+                        <x-nav.search type="status"/>
                     @endif
                 </div>
             </div>
