@@ -40,15 +40,15 @@
                             </h3>
 
                             <div class="space-y-4 mt-4 w-full">
-                                <x-forms.input label="Asset Tag" id="asset_tag" placeholder="Asset Tag"/>
-                                <x-forms.model-dropdown :identifier="'model'" :label="'Model'"
-                                    :id="'model'" :name="'model'" />
-                                <x-forms.building-dropdown :identifier="'building'" :label="'Building'"
-                                    :id="'building'" :name="'building'"/> 
-                                <x-forms.input label="Serial Number" id="serial_number" 
+                                <x-forms.input label="Asset Tag" id="create_asset_tag" placeholder="Asset Tag"/>
+                                <x-forms.model-dropdown :identifier="'create_model'" :label="'Model'"
+                                    :id="'create_model'" :name="'create_model'" />
+                                <x-forms.building-dropdown :identifier="'create_building'" :label="'Building'"
+                                    :id="'create_building'" :name="'create_building'"/> 
+                                <x-forms.input label="Serial Number" id="create_serial_number" 
                                     placeholder="Serial Number"
                                 />
-                                <x-forms.input label="MAC Address" id="mac_address"
+                                <x-forms.input label="MAC Address" id="create_mac_address"
                                     placeholder="MAC Address"
                                 />
                             </div>
@@ -87,11 +87,11 @@ function createDevice() {
         url: "{{ route('devices.store') }}",
         data: { 
             '_token': '@php echo csrf_token(); @endphp',
-            'asset_tag': $('#asset_tag').val(),
-            'model': $('#model').val(),
-            'building': $('#building').val(),
-            'serial_number': $('#serial_number').val(),
-            'mac_address': $('#mac_address').val()
+            'asset_tag': $('#create_asset_tag').val(),
+            'model': $('#create_model').val(),
+            'building': $('#create_building').val(),
+            'serial_number': $('#create_serial_number').val(),
+            'mac_address': $('#create_mac_address').val()
         },
         dataType: 'json',
         success: function(response) {
@@ -115,10 +115,10 @@ function addErrorDecor(obj_id) {
 }
 
 function removeErrorDecor() {
-    document.getElementById("asset_tag").classList.remove('border-red-500', 'dark:border-red-400');
-    document.getElementById("model").classList.remove('border-red-500', 'dark:border-red-400');
-    document.getElementById("building").classList.remove('border-red-500', 'dark:border-red-400');
-    document.getElementById("serial_number").classList.remove('border-red-500', 'dark:border-red-400');
-    document.getElementById("mac_address").classList.remove('border-red-500', 'dark:border-red-400');
+    document.getElementById("create_asset_tag").classList.remove('border-red-500', 'dark:border-red-400');
+    document.getElementById("create_model").classList.remove('border-red-500', 'dark:border-red-400');
+    document.getElementById("create_building").classList.remove('border-red-500', 'dark:border-red-400');
+    document.getElementById("create_serial_number").classList.remove('border-red-500', 'dark:border-red-400');
+    document.getElementById("create_mac_address").classList.remove('border-red-500', 'dark:border-red-400');
 }
 </script>
