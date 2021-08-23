@@ -67,6 +67,14 @@ function data() {
       toggleEditStatusMenu() {
         this.isEditStatusMenuOpen = !this.isEditStatusMenuOpen
       },
+      isCreateDeviceMenuOpen: false,
+      toggleCreateDeviceMenu() {
+        this.isCreateDeviceMenuOpen = !this.isCreateDeviceMenuOpen
+      },
+      isEditDeviceMenuOpen: false,
+      toggleEditDeviceMenu() {
+        this.isEditDeviceMenuOpen = !this.isEditDeviceMenuOpen
+      },
       // Modal
       isModalOpen: false,
       trapCleanup: null,

@@ -17,6 +17,9 @@
             .swal2-styled.swal2-confirm {
                 background-color: #3f83f8 !important;
             }
+            [x-cloak] {
+                display: none;
+            }
         </style>
         <template x-if="dark">
 			<style>
@@ -42,6 +45,7 @@
                 }
 			</style>
 		</template>
+        {{ $styles ?? ''}}
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -55,7 +59,7 @@
     <body class="dark:bg-gray-900">
         <x-nav.navigation>
             <h2 class="ml-6 mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                {{ $header }}
+                {{ $header ?? '' }}
             </h2>
             {{ $slot }}
         </x-nav.navigation>

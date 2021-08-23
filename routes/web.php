@@ -19,6 +19,10 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
+Route::get('/test', function() {
+    return view('components.test');
+});
+
 Route::get('/dashboard', function() {
     if (auth()->user()->is_staff())
         return redirect()->route('tickets.index');
@@ -39,6 +43,7 @@ Route::middleware([StaffOnly::class, 'auth'])->group(function() {
     require __DIR__.'/staff.php';
     require __DIR__.'/users.php';
     require __DIR__.'/status.php';
+    require __DIR__.'/device.php';
 });
 
 require __DIR__.'/requests.php';

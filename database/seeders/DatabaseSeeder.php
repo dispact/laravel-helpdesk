@@ -58,16 +58,26 @@ class DatabaseSeeder extends Seeder
         ]);
         foreach($ticket as $ticket)
             $ticket->staff()->attach($staff->id);
-        // \App\Models\Ticket::factory(2)->create([
-        //     'building_id' => '1',
-        //     'category_id' => '2',
-        //     'status_id' => '2'
-        // ]);
-        // \App\Models\Ticket::factory(3)->create([
-        //     'staff_id' => '1',
-        //     'building_id' => '1',
-        //     'category_id' => '3',
-        //     'status_id' => '3'
-        // ]);
+        $charger = \App\Models\DeviceModel::create([
+            'name' => 'USB-C Power Supply',
+            'type' => 11,
+            'manufacturer' => 9
+        ]);
+        $laptop = \App\Models\DeviceModel::create([
+            'name' => 'Dell Latitude 3390',
+            'type' => 4,
+            'manufacturer' => 9
+        ]);
+        \App\Models\Device::create([
+            'asset_tag' => 'PS-0001',
+            'model_id' => $charger->id,
+            'building_id' => $building->id
+        ]);
+        \App\Models\Device::create([
+            'asset_tag' => '2LPTBF2',
+            'model_id' => $laptop->id,
+            'building_id' => $building->id,
+            'serial_number' => '2LPTBF2'
+        ]);
     }
 }
