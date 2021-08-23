@@ -15,8 +15,8 @@ class DeviceController extends Controller
     public function store(Request $request) {
         $validator = \Validator::make($request->all(), [
             'asset_tag' => 'required|string|unique:devices',
-            'model' => 'nullable|int|exists:device_models',
-            'building' => 'nullable|int|exists:buildings',
+            'model' => 'nullable|int|exists:device_models,id',
+            'building' => 'nullable|int|exists:buildings,id',
             'serial_number' => 'nullable|string|unique:devices,serial_number',
             'mac_address' => 'nullable|string|unique:devices,mac_address'
         ]);
