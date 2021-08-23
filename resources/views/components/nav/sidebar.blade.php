@@ -7,12 +7,18 @@
     </a>
     <ul class="mt-6">
         @if (auth()->user()->is_staff())
-            <x-nav.side-nav-link title="Tickets" icon="ticket" active="{{ request()->routeIs('tickets.index') }}"
+            <x-nav.side-nav-link title="Tickets" icon="ticket" 
+                active="{{ request()->routeIs('tickets.index') }}"
                 link="{{ route('tickets.index') }}"
+            />
+            <x-nav.side-nav-link title="Inventory" icon="desktop-computer" 
+                active="{{ request()->routeIs('devices.index') }}"
+                link="{{ route('devices.index') }}"
             />
             <x-nav.management/>
         @else
-        <x-nav.side-nav-link title="My Tickets" icon="ticket" active="{{ request()->routeIs('requests.index') }}"
+        <x-nav.side-nav-link title="My Tickets" icon="ticket" 
+            active="{{ request()->routeIs('requests.index') }}"
             link="{{ route('requests.index') }}"
         />
         @endif

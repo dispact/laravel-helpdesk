@@ -27,8 +27,8 @@
                 <div class="bg-white dark:bg-gray-700 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
                         <div class="mx-auto flex-shrink-0 flex items-center 
-                                justify-center h-12 w-12 rounded-full bg-green-100 dark:bg-green-200
-                                sm:mx-0 sm:h-10 sm:w-10 text-green-500 dark:text-green-600"
+                                justify-center h-12 w-12 rounded-full bg-orange-100 dark:bg-orange-200
+                                sm:mx-0 sm:h-10 sm:w-10 text-orange-500 dark:text-orange-600"
                         >
                             <x-icons.icon name="person"/>
                         </div>
