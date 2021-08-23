@@ -14,8 +14,8 @@
             <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left 
                     overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle 
                     sm:max-w-lg sm:w-full ring-gray-500 ring-2 ring-opacity-10 m-auto" 
-                @click.away="toggleCreateDeviceMenu();removeErrorDecor()" 
-                @close.stop="toggleCreateDeviceMenu();removeErrorDecor()"
+                @click.away="toggleCreateDeviceMenu();removeCreateErrorDecor()" 
+                @close.stop="toggleCreateDeviceMenu();removeCreateErrorDecor()"
                 x-on:keydown.escape="toggleCreateDeviceMenu()"
                 x-transition:enter="transition ease-out duration-100"
                 x-transition:enter-start="transform opacity-0 scale-95"
@@ -65,7 +65,7 @@
                     >
                         Create
                     </button>
-                    <button @click="toggleCreateDeviceMenu();removeErrorDecor()" class="mt-3 w-full inline-flex justify-center rounded-md border 
+                    <button @click="toggleCreateDeviceMenu();removeCreateErrorDecor()" class="mt-3 w-full inline-flex justify-center rounded-md border 
                         border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white 
                         dark:bg-gray-700 text-base font-medium text-gray-700 dark:text-gray-200 
                         hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 
@@ -81,7 +81,7 @@
 
 <script>
 function createDevice() {
-    removeErrorDecor();
+    removeCreateErrorDecor();
     $.ajax({
         method: 'POST',
         url: "{{ route('devices.store') }}",
@@ -114,7 +114,7 @@ function addErrorDecor(obj_id) {
     document.getElementById(obj_id).classList.add('border-red-500', 'dark:border-red-400');
 }
 
-function removeErrorDecor() {
+function removeCreateErrorDecor() {
     document.getElementById("create_asset_tag").classList.remove('border-red-500', 'dark:border-red-400');
     document.getElementById("create_model").classList.remove('border-red-500', 'dark:border-red-400');
     document.getElementById("create_building").classList.remove('border-red-500', 'dark:border-red-400');
