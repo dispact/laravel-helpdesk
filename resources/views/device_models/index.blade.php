@@ -5,14 +5,12 @@
         </x-slot>
         
         <div class="ml-5" style="max-width: 95%">
-            @livewire('devices-table', [
-                'params'=>'Add Device', 
+            @livewire('device-model-table', [
+                'params'=>'Add Device Model', 
                 'exportable' => true,
                 'hideable' => 'select'
             ])
         </div>
     </div>
-    <x-modals.create.device/>
-    <x-modals.edit.device/>
     @livewireScripts
 </x-app-layout>

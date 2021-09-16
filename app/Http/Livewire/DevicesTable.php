@@ -31,29 +31,24 @@ class DevicesTable extends LivewireDatatable
 
             Column::name('device_models.name')
                 ->label('Model')
-                ->filterable($this->models)
-                ,
+                ->filterable($this->models),
 
             Column::name('buildings.name')
                 ->label('Building')
-                ->filterable($this->buildings)
-                ,
+                ->filterable($this->buildings),
             
             Column::name('rooms.name')
                 ->label('Room')
                 ->filterable($this->rooms)
-                ->hide()
-                ,
+                ->hide(),
             
             Column::name('serial_number')
                 ->label('Serial Number')
-                ->filterable()
-                ,
+                ->filterable(),
 
             Column::name('mac_address')
                 ->label('MAC Address')
-                ->filterable()
-                ,
+                ->filterable(),
 
             DateColumn::name('created_at')
                 ->label('Created')
@@ -61,7 +56,7 @@ class DevicesTable extends LivewireDatatable
                 ->hide(),
 
             Column::callback(['asset_tag'], function($asset_tag) {
-                return view('livewire.datatables.device-actions', ['asset_tag' => $asset_tag]);
+                return view('livewire.datatables.device-actions', ['id' => $asset_tag]);
             })->unsortable()->excludeFromExport()
 
         ];

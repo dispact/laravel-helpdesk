@@ -110,11 +110,11 @@ class DeviceController extends Controller
 
     public function destroy(Request $request) {
         $request->validate([
-            'device' => 'required'
+            'id' => 'required'
         ]);
 
         try {
-            $user = Device::find($request->device);
+            $user = Device::find($request->id);
             $user->delete();
 
             return response()->json(['msg' => 'Device deleted!'], 200);

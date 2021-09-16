@@ -31,8 +31,8 @@
                         dark:bg-gray-700 text-green-500 dark:text-green-400  text-xs leading-4 
                         font-medium uppercase tracking-wider hover:bg-green-200 dark:hover:bg-green-500
                         dark:hover:text-green-200 focus:outline-none"
-                        @click="toggleCreateDeviceMenu()">
-                    <span class="flex items-center h-5">{{ __('Add Device') }}</span>
+                        @click="toggleCreateMenu()">
+                    <span class="flex items-center h-5">{{ $params }}</span>
                 </button>
             </div>
             <div class="flex items-center space-x-1">
@@ -185,40 +185,8 @@
     </div>
     @endif
 </div>
-<x-modals.create-device/>
-<x-modals.edit-device/>
 <script>
-function updateModal(id) {
-    var model = $('div:contains('+id+').table-cell').parent().find('#device_models').text().trim()
-    var building = $('div:contains('+id+').table-cell').parent().find('#buildings').text().trim()
-    var serial = $('div:contains('+id+').table-cell').parent().find('#serial_number').text().trim()
-    var mac = $('div:contains('+id+').table-cell').parent().find('#mac_address').text().trim()
-
-    Array.from(document.querySelector("#edit-model").options).forEach(function(option) {
-        option.selected = false;
-
-        let text = option.text;
-
-        if (text.includes(model))
-            option.selected = true;
-    });
-
-    Array.from(document.querySelector("#edit-building").options).forEach(function(option) {
-        option.selected = false;
-
-        let text = option.text;
-
-        if (building.includes(text))
-            option.selected = true;
-    });
-
-    $('#og-asset-tag').val(id);
-    $('#edit-asset').val(id);
-    $('#edit-serial').val(serial);
-    $('#edit-mac').val(mac);
-}
-
-function deleteDevice(id) {
+function deleteItem(id, route) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to reverse this!",
@@ -231,10 +199,10 @@ function deleteDevice(id) {
         if (result.isConfirmed) {
             $.ajax({
                 method: 'POST',
-                url: "{{ route('devices.destroy') }}",
+                url: route,
                 data: { 
                     '_token': '@php echo csrf_token(); @endphp',
-                    'device': id,
+                    'id': id,
                 },
                 dataType: 'json',
                 success: function(response) {

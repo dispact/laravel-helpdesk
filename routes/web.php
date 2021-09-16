@@ -44,6 +44,7 @@ Route::middleware([StaffOnly::class, 'auth'])->group(function() {
     require __DIR__.'/users.php';
     require __DIR__.'/status.php';
     require __DIR__.'/device.php';
+    require __DIR__.'/device_models.php';
 });
 
 require __DIR__.'/requests.php';

@@ -4,7 +4,7 @@
         {{ __('Manage Users') }} 
         <button class="text-green-500 hover:text-green-700
             dark:text-green-400 dark:hover:text-green-300"
-            @click="toggleCreateUserMenu()">
+            @click="toggleCreateMenu()">
             <x-icons.icon name="action-create"/>
         </button>
     </x-slot>
@@ -52,7 +52,7 @@
                             <td class="px-4 py-3 text-sm text-center space-x-4 dark:text-gray-200">
                                 <button class="text-orange-500 hover:text-orange-700 
                                     dark:text-orange-400 dark:hover:text-orange-300"
-                                    @click="toggleEditUserMenu()"
+                                    @click="toggleEditMenu()"
                                     onClick="updateModal({{ $user->id }})">
                                     <x-icons.icon name="action-edit"/>
                                 </button>
@@ -75,8 +75,8 @@
             @endif
         </div>
         {{ $users->links() }}
-        <x-modals.create-user/>
-        <x-modals.edit-user/>
+        <x-modals.create.user/>
+        <x-modals.edit.user/>
     </div>
 </x-app-layout>
 
@@ -85,7 +85,7 @@ function updateModal(id) {
     var buildings = $('tr[id='+id+']').find('td:nth-child(2)').text().trim();
     var name = $('tr[id='+id+']').find('td:nth-child(1)').find('div:nth-child(2)').find('p:nth-child(1)').text().trim();
     var email = $('tr[id='+id+']').find('td:nth-child(1)').find('div:nth-child(2)').find('p:nth-child(2)').text().trim();
-    Array.from(document.querySelector("#edit-building").options).forEach(function(option) {
+    Array.from(document.querySelector("#edit_building").options).forEach(function(option) {
         option.selected = false;
 
         let text = option.text;
@@ -95,8 +95,8 @@ function updateModal(id) {
     });
 
     $('#user_id').val(id);
-    $('#edit-name').val(name);
-    $('#edit-email').val(email);
+    $('#edit_name').val(name);
+    $('#edit_email').val(email);
 }
 
 function deleteUser(id) {

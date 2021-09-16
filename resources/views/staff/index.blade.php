@@ -83,36 +83,6 @@
     </div>
 </x-app-layout>
 <script>
-function createCategory() {
-    Swal.fire({
-        title: 'Create category',
-        input: 'text',
-        showCancelButton: true,
-        confirmButtonText: 'Create',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('categories.store') }}",
-                data: { 
-                    '_token': '@php echo csrf_token(); @endphp',
-                    'name': result.value, 
-                },
-                dataType: 'json',
-                success: function(response) {
-                    swal_success(response['msg']);
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
-                },
-                error: function(response) {
-                    swal_error(response.responseJSON['msg']);
-                }
-            })
-        }
-    })
-}
-
 function createStaff() {
     Swal.fire({
         title: 'Enter user\'s email',
@@ -127,39 +97,6 @@ function createStaff() {
                 data: { 
                     '_token': '@php echo csrf_token(); @endphp',
                     'email': result.value, 
-                },
-                dataType: 'json',
-                success: function(response) {
-                    swal_success(response['msg']);
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
-                },
-                error: function(response) {
-                    swal_error(response.responseJSON['msg']);
-                }
-            })
-        }
-    })
-}
-
-function deleteCategory(id) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to reverse this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('categories.destroy') }}",
-                data: { 
-                    '_token': '@php echo csrf_token(); @endphp',
-                    'category_id': id,
                 },
                 dataType: 'json',
                 success: function(response) {
