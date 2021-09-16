@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 class BuildingController extends Controller
 {
     public function index() {
-        return view('buildings.index', [
-            'buildings' => Building::latest('updated_at')
-                ->filter(request(['search']))
-                ->paginate(10)
-        ]);
+        return view('buildings.index');
     }
 
     public function store(Request $request) {

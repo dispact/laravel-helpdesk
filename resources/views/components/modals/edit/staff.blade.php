@@ -8,11 +8,11 @@
     </x-slot>
 
     <x-slot name="fields">
-        <x-forms.category-select :identifier="'category'" :label="'Assigned Categories'"
-            :name="'category'" :val="''"
+        <x-forms.category-select :identifier="'edit_category'" :label="'Assigned Categories'"
+            :name="'edit_category'" :val="''"
         /> 
-        <x-forms.building-select :identifier="'building'" :label="'Assigned Buildings'"
-            :name="'building'" :val="''"
+        <x-forms.building-select :identifier="'edit_building'" :label="'Assigned Buildings'"
+            :name="'edit_building'" :val="''"
         /> 
         <input type="hidden" id="staff_id" value=""/>
         <input type="hidden" id="category_id" val=""/>
@@ -27,18 +27,15 @@
                     data: { 
                         '_token': '@php echo csrf_token(); @endphp',
                         'staff_id': $('#staff_id').val(),
-                        'category_id': $('#category').val(),
-                        'building_id': $('#building').val()
+                        'category_id': $('#edit_category').val(),
+                        'building_id': $('#edit_building').val()
                     },
                     dataType: 'json',
                     success: function(response) {
-                        swal_success(response['msg']);
-                        setTimeout(function() {
-                            location.reload(true);
-                        }, 1000);
+                        successResponse(response);
                     },
                     error: function(response) {
-                        swal_error(response.responseJSON['msg']);
+                        swal_error(response.responseJSON.msg);
                     }
                 })
             };

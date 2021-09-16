@@ -17,14 +17,14 @@ class StatusController extends Controller
 
     public function store(Request $request) {
         $validator = \Validator::make($request->all(), [
-            'name' => 'required|string|unique:statuses,name',
+            'name' => 'required|string|iunique:statuses,name',
             'color' => 'required'
         ]);
 
         if($validator->fails()) {
             $failed = $validator->failed();
 
-            if (isset($failed['name']['unique']))
+            if (isset($failed['name']['Iunique']))
                 $msg = 'Status already exists!';
             else 
                 $msg = 'All fields required';

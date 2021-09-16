@@ -26,14 +26,6 @@ module.exports = {
                 '700': '#24262d',
                 '800': '#1a1c23',
                 '900': '#121317',
-                // default values from Tailwind UI palette
-                // '300': '#d2d6dc',
-                // '400': '#9fa6b2',
-                // '500': '#6b7280',
-                // '600': '#4b5563',
-                // '700': '#374151',
-                // '800': '#252f3f',
-                // '900': '#161e2e',
             },
             'cool-gray': {
                 '50': '#fbfdfe',
@@ -176,7 +168,12 @@ module.exports = {
         extend: {
             opacity: ['disabled'],
         },
+        scrollbar: ['dark'],
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/line-clamp')],
+    plugins: [
+        require('@tailwindcss/forms'), 
+        require('@tailwindcss/line-clamp'),
+        require('tailwind-scrollbar')
+    ],
 };

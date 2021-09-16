@@ -19,13 +19,27 @@ class StaffController extends Controller
     }
 
     public function store(Request $request) {
+        $validator = \Validator::make($request->all(), [
+            'email' => 'required|email'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'msg' => 'Invalid email address'
+            ], 400);
+        }
+
         try {
-            $request->validate([
-                'email' => 'required'
-            ]);
-
             $user = User::firstWhere('email', $request->email);
+        } catch (\exception $e) {
+            return response()->json(['msg' => 'Email does not belong to a user'], 400);
+        }
 
+        if (Staff::where('user_id', $user->id)->first()) {
+            return response()->json(['msg' => 'Staff already exists!'], 400);
+        }
+
+        try {
             Staff::create([
                 'user_id' => $user->id
             ]);
@@ -33,7 +47,7 @@ class StaffController extends Controller
             $user->staff = true;
             $user->save();
 
-            return response()->json(['msg' => 'Staff created!'], 200);
+            return response()->json(['msg' => 'Staff created'], 200);
         } catch (\exception $e) {
             return response()->json(['msg' => 'Error creating staff'], 400);
         }

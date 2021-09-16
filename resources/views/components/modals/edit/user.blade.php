@@ -34,23 +34,12 @@
             },
             dataType: 'json',
             success: function(response) {
-                  swal_success(response['msg']);
-                  setTimeout(function() {
-                     location.reload(true);
-                  }, 1000);
+               successResponse(response);
             },
             error: function(response) {
-                  if (response.responseJSON['errors'])
-                     jQuery.each(response.responseJSON['errors'], function(i, val) {
-                        addErrorDecor(i);
-                     });
-                  swal_error(response.responseJSON['msg']);
+               errorResponse(response);
             }
          })
-      }
-
-      function addErrorDecor(obj_id) {
-         document.getElementById(obj_id).classList.add('border-red-500', 'dark:border-red-400');
       }
 
       function removeErrorDecor() {

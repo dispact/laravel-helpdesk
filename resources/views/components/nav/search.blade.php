@@ -21,14 +21,14 @@
     />
 </form>
 @elseif ($type == 'buildings')
-<form method="GET" action="{{ route('buildings.index') }}">
+<div x-data="{ search: '' }">
     <input class="{{ $class }}"
-        type="text" name="search"
+        x-model="search"
+        type="text"
         placeholder="Search buildings"
         aria-label="Search"
-        value="{{ request('search') }}"
     />
-</form>
+</div>
 @elseif ($type == 'categories')
 <form method="GET" action="{{ route('categories.index') }}">
     <input class="{{ $class }}"
@@ -40,7 +40,9 @@
 </form>
 @elseif ($type == 'staff')
 <form method="GET" action="{{ route('staff.index') }}">
-    <input class="{{ $class }}"
+    <input 
+        
+        class="{{ $class }}"
         type="text" name="search"
         placeholder="Search staff"
         aria-label="Search"

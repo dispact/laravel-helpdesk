@@ -87,6 +87,6 @@
 
 <script>
 function addErrorDecor(obj_id) {
-    document.getElementById(obj_id).classList.add('border-red-500', 'dark:border-red-400');
+    document.getElementById('create_' + obj_id).classList.add('border-red-500', 'dark:border-red-400');
 };
 </script>

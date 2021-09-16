@@ -64,7 +64,9 @@
         </div>
         @endif
 
-        <div class="rounded-lg shadow-lg bg-white dark:bg-gray-800 max-w-screen overflow-x-scroll">
+        <div class="rounded-lg shadow-lg bg-white dark:bg-gray-800 max-w-screen overflow-x-scroll scrollbar
+            scrollbar-track-gray-200 scrollbar-thumb-gray-300
+            dark:scrollbar-track-gray-600 dark:scrollbar-thumb-gray-500">
             <div class="rounded-lg @unless($this->hidePagination) rounded-b-none @endif">
                 <div class="table align-middle min-w-full">
                     @unless($this->hideHeader)
@@ -161,7 +163,7 @@
 
                         <div class="my-4 sm:my-0">
                             <div class="lg:hidden">
-                                <span class="space-x-2">{{ $this->results->links('datatables::tailwind-simple-pagination') }}</span>
+                                {{ $this->results->links('datatables::tailwind-simple-pagination') }}
                             </div>
 
                             <div class="hidden lg:flex justify-center">
@@ -169,7 +171,7 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end text-gray-600 dark:text-gray-300">
+                        <div class="flex justify-end text-gray-600 dark:text-gray-300 mb-2 md:mb-0">
                             {{__('Results')}} {{ $this->results->firstItem() }} - {{ $this->results->lastItem() }} {{__('of')}}
                             {{ $this->results->total() }}
                         </div>

@@ -16,7 +16,7 @@
                     sm:max-w-lg sm:w-full ring-gray-500 ring-2 ring-opacity-10 m-auto" 
                 @click.away="toggleEditMenu();removeErrorDecor()" 
                 @close.stop="toggleEditMenu();removeErrorDecor()"
-                x-on:keydown.escape="toggleEditMenu()"
+                x-on:keydown.escape="toggleEditMenu();removeErrorDecor()"
                 x-transition:enter="transition ease-out duration-100"
                 x-transition:enter-start="transform opacity-0 scale-95"
                 x-transition:enter-end="transform opacity-100 scale-100"
@@ -73,6 +73,21 @@
 
 <script>
 function addErrorDecor(obj_id) {
-    document.getElementById(obj_id).classList.add('border-red-500', 'dark:border-red-400');
+    document.getElementById('edit_' + obj_id).classList.add('border-red-500', 'dark:border-red-400');
+}
+
+function successResponse(response) {
+    swal_success(response['msg']);
+    setTimeout(function() {
+        location.reload(true);
+    }, 1000);
+}
+
+function errorResponse(response) {
+    if (response.responseJSON.errors)
+        jQuery.each(response.responseJSON.errors, function(i, val) {
+            addErrorDecor(i);
+        });
+    swal_error(response.responseJSON.msg);
 }
 </script>
