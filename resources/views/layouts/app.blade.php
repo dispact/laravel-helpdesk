@@ -48,8 +48,8 @@
         @livewireStyles
 
         <!-- Scripts -->
+        @livewireScripts
         <script src="{{ asset ('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/sweetalert2.js') }}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
@@ -60,7 +60,5 @@
             </h2>
             {{ $slot }}
         </x-nav.navigation>
-
-        @livewireScripts
     </body>
 </html>

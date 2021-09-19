@@ -5095,6 +5095,34 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.data('data', function () {
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__.default;
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.start();
 
+function swal_success(message) {
+  Swal.fire({
+    icon: 'success',
+    title: message,
+    showConfirmButton: false,
+    timer: 2000
+  });
+}
+
+;
+
+function swal_error(message) {
+  Swal.fire({
+    icon: 'error',
+    title: message,
+    showConfirmButton: false,
+    timer: 2000
+  });
+}
+
+;
+window.addEventListener('successMessage', function (event) {
+  swal_success(event.detail.message);
+});
+window.addEventListener('errorMessage', function (event) {
+  swal_error(event.detail.message);
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

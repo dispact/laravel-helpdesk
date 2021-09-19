@@ -14,11 +14,9 @@ class CreateStaffTicketTable extends Migration
     public function up()
     {
         Schema::create('staff_ticket', function (Blueprint $table) {
-            $table->integer('staff_id')->unsigned()->index();
-            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
-            $table->integer('ticket_id')->unsigned()->index();
-            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
             $table->primary(['staff_id', 'ticket_id']);
+            $table->foreignId('staff_id')->constrained()->onDelete('cascade');
+            $table->foreignId('ticket_id')->constrained()->onDelete('cascade');
         });
     }
 

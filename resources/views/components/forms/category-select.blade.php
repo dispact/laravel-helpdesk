@@ -10,10 +10,8 @@
             id="{{ $id }}"
             name="{{ $name }}"
             multiple
+            {{ $attributes }}
     >
-        @if ($val == '')
-            <option value="" selected disabled hidden>Select a {{ $label }}</option>
-        @endif
         @foreach($categories as $category)
             <option value="{{ $category->id }}">
                 {{ $category->name }}

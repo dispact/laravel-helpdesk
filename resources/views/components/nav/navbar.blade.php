@@ -16,18 +16,18 @@
             <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-blue-500">
-                    {{-- @if (request()->routeIs('buildings.index'))
-                        <x-nav.search type="buildings"/> --}}
-                    @if (request()->routeIs('categories.index'))
-                        <x-nav.search type="categories"/>
+                    @if (request()->routeIs('requests.index'))
+                        <x-nav.search type="requests"/>
                     @elseif (request()->routeIs('tickets.index'))
                         <x-nav.search type="tickets"/>
+                    {{-- @elseif (request()->routeIs('buildings.index'))
+                        <x-nav.search type="buildings"/>
+                    @elseif (request()->routeIs('categories.index'))
+                        <x-nav.search type="categories"/>
                     @elseif (request()->routeIs('users.index'))
                         <x-nav.search type="users"/>
-                    @elseif (request()->routeIs('requests.index'))
-                        <x-nav.search type="requests"/>
                     @elseif (request()->routeIs('status.index'))
-                        <x-nav.search type="status"/>
+                        <x-nav.search type="status"/> --}}
                     @endif
                 </div>
             </div>

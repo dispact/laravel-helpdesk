@@ -6,6 +6,9 @@ use App\Models\Room;
 use App\Models\Device;
 use App\Models\Building;
 use App\Models\DeviceModel;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
@@ -73,4 +76,6 @@ class DevicesTable extends LivewireDatatable
     public function getRoomsProperty() {
         return Room::pluck('name');
     }
+
+    
 }

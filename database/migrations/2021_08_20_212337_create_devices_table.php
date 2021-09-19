@@ -14,6 +14,7 @@ class CreateDevicesTable extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
+            $table->primary('asset_tag');
             $table->string('asset_tag')->unique();
             $table->foreignId('model_id')->nullable();
             $table->foreignId('building_id')->nullable();

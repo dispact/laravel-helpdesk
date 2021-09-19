@@ -10,11 +10,13 @@ class DeviceModel extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function getModelTypeAttribute($value) {
         return Arr::get(config('enum.model_types'), $value);
     }
 
-    public function getManufacturerAttribute($value) {
+    public function getModelManufacturerAttribute($value) {
         return Arr::get(config('enum.manufacturers'), $value);
     }
 

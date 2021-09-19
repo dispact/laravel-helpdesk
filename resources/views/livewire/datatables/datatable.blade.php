@@ -31,8 +31,9 @@
                         dark:bg-gray-700 text-green-500 dark:text-green-400  text-xs leading-4 
                         font-medium uppercase tracking-wider hover:bg-green-200 dark:hover:bg-green-500
                         dark:hover:text-green-200 focus:outline-none"
-                        @click="toggleCreateMenu()">
-                    <span class="flex items-center h-5">{{ $params }}</span>
+                        x-on:click="window.livewire.emit('openCreateModal')"
+                    >
+                    {{ $params }}
                 </button>
             </div>
             <div class="flex items-center space-x-1">
@@ -188,7 +189,7 @@
     @endif
 </div>
 <script>
-function deleteItem(id, route) {
+function deleteItem(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to reverse this!",
@@ -199,24 +200,7 @@ function deleteItem(id, route) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            $.ajax({
-                method: 'POST',
-                url: route,
-                data: { 
-                    '_token': '@php echo csrf_token(); @endphp',
-                    'id': id,
-                },
-                dataType: 'json',
-                success: function(response) {
-                    swal_success(response['msg']);
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
-                },
-                error: function(response) {
-                    swal_error(response.responseJSON['msg']);
-                }
-            })
+            Livewire.emit('deleteDevice', id)
         }
     })
 }
