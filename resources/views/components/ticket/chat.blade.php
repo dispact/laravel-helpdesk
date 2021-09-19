@@ -73,13 +73,13 @@ function submitMessage() {
             },
             dataType: 'json',
             success: function(response) {
-                swal_success(response['msg']);
+                window.dispatchEvent(new CustomEvent('successMessage', { detail: { message: response['msg'] }}));
                 setTimeout(function() {
                     location.reload(true);
                 }, 1000);
             },
             error: function(response) {
-                swal_error(response.responseJSON['msg']);
+                window.dispatchEvent(new CustomEvent('successMessage', { detail: { message: response.responseJSON.msg }}));
             }
         });
     }
