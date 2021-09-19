@@ -1,4 +1,4 @@
-@props(['label' => '', 'items', 'id' => '', 'name' => $id, 'val' => ''])
+@props(['label' => '', 'items', 'id' => '', 'name' => $id, 'val' => '', 'enum' => false])
 <label class="block mt-4 text-sm">
     <span class="text-gray-700 dark:text-gray-300">
         {{ $label }}
@@ -9,13 +9,20 @@
             @error($id) border-red-500 dark:border-red-400 @enderror"
             id="{{ $id }}"
             name="{{ $name }}"
+            {{ $attributes }}
     >
         @if ($val == '')
-            <option value="" selected disabled hidden>Select a {{ $label }}</option>
+            <option value="0">Select a {{ $label }}</option>
         @endif
-        @foreach($items as $item)
-            <option value="{{ $item->id }}" @if($val==$item->id) selected @endif>{{ $item->name }}</option>
-        @endforeach
+        @if ($enum) {
+            @foreach($items as $key=>$item)
+                <option value="{{ $key }}" @if($val==$key) selected @endif>{{ $item }}</option>
+            @endforeach
+        @else
+            @foreach($items as $item)
+                <option value="{{ $item->id }}" @if($val==$item->id) selected @endif>{{ $item->name }}</option>
+            @endforeach
+        @endif
     </select>
 
     @error($id)

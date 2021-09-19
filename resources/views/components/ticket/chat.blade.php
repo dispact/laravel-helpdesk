@@ -4,7 +4,8 @@
         <div class="flex flex-col flex-auto pr-4">
             <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 
                 dark:bg-gray-700 h-full">
-                <div class="flex flex-col h-full overflow-x-auto overflow-y-scroll mb-4 p-4">
+                <div class="flex flex-col h-full overflow-x-auto overflow-y-scroll mb-4 p-4
+                    scrollbar-thumb-blue-500 scrollbar-track-gray-100">
                     <div class="flex flex-col h-full">
                         <div class="grid grid-cols-12 gap-y-2">
                             @foreach($messages as $message)

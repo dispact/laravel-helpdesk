@@ -37,7 +37,7 @@
                                     <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                         <img
                                             class="object-cover w-full h-full rounded-full"
-                                            src="https://i.pravatar.cc/100?u={{ $ticket->author->id }}"
+                                            src="https://i.pravatar.cc/100?u={{ $ticket->author->id ?? '0'}}"
                                             alt=""
                                             loading="lazy"
                                         />
@@ -48,17 +48,17 @@
                                     <div>
                                         <p class="font-semibold dark:text-gray-200"
                                         >
-                                            {{ $ticket->author->name }}
+                                            {{ $ticket->author->name ?? 'Unknown'}}
                                         </p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                                            {{ $ticket->building->name }}
+                                            {{ $ticket->building->name ?? ''}}
                                         </p>
                                     </div>
                                 </div>
                             </td>
     
                             <td class="px-4 py-3 text-sm dark:text-gray-200">
-                                <p class="line-clamp-1">{{ $ticket->title }}</p>
+                                <p class="line-clamp-1">{{ $ticket->title ?? '' }}</p>
                             </td>
 
                             <td class="px-4 py-3">
@@ -66,10 +66,13 @@
                             </td>
 
                             <td class="px-4 py-3 text-xs max-w-sm text-center">
-                                <span class="px-2 py-1 font-semibold leading-tight text-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-700 
-                                    bg-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-100 rounded-full dark:bg-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-700 dark:text-{{ $ticket->status->getStatusColorAttribute($ticket->status->color) }}-100"
+                                <span class="px-2 py-1 font-semibold leading-tight rounded-full
+                                    text-{{ $ticket->status->getStatusColorAttribute($ticket->status->color ?? '9') }}-700 
+                                    bg-{{ $ticket->status->getStatusColorAttribute($ticket->status->color ?? '9') }}-100 
+                                    dark:bg-{{ $ticket->status->getStatusColorAttribute($ticket->status->color ?? '9') }}-700 
+                                    dark:text-{{ $ticket->status->getStatusColorAttribute($ticket->status->color ?? '9') }}-100"
                                 >
-                                    {{ $ticket->status->name }}
+                                    {{ $ticket->status->name ?? '-'}}
                                 </span>
                             </td>
 

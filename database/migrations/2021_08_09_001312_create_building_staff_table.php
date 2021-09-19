@@ -14,10 +14,8 @@ class CreateBuildingStaffTable extends Migration
     public function up()
     {
         Schema::create('building_staff', function (Blueprint $table) {
-            $table->integer('staff_id')->unsigned()->index();
-            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
-            $table->integer('building_id')->unsigned()->index();
-            $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
+            $table->foreignId('staff_id')->constrained()->onDelete('cascade');
+            $table->foreignId('building_id')->constrained()->onDelete('cascade');
             $table->primary(['building_id', 'staff_id']);
         });
     }

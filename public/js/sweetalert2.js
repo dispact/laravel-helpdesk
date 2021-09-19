@@ -15,3 +15,11 @@ function swal_error(message) {
         timer: 2000
     });
 };
+
+window.addEventListener('successMessage', event => {
+    swal_success(event.detail.message);
+})
+
+window.addEventListener('errorMessage', event => {
+    swal_error(event.detail.message);
+})

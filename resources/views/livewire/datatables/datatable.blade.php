@@ -31,8 +31,9 @@
                         dark:bg-gray-700 text-green-500 dark:text-green-400  text-xs leading-4 
                         font-medium uppercase tracking-wider hover:bg-green-200 dark:hover:bg-green-500
                         dark:hover:text-green-200 focus:outline-none"
-                        @click="toggleCreateDeviceMenu()">
-                    <span class="flex items-center h-5">{{ __('Add Device') }}</span>
+                        x-on:click="window.livewire.emit('openCreateModal')"
+                    >
+                    {{ $params }}
                 </button>
             </div>
             <div class="flex items-center space-x-1">
@@ -64,7 +65,9 @@
         </div>
         @endif
 
-        <div class="rounded-lg shadow-lg bg-white dark:bg-gray-800 max-w-screen overflow-x-scroll">
+        <div class="rounded-lg shadow-lg bg-white dark:bg-gray-800 max-w-screen overflow-x-scroll scrollbar
+            scrollbar-track-gray-200 scrollbar-thumb-gray-300
+            dark:scrollbar-track-gray-600 dark:scrollbar-thumb-gray-500">
             <div class="rounded-lg @unless($this->hidePagination) rounded-b-none @endif">
                 <div class="table align-middle min-w-full">
                     @unless($this->hideHeader)
@@ -161,7 +164,7 @@
 
                         <div class="my-4 sm:my-0">
                             <div class="lg:hidden">
-                                <span class="space-x-2">{{ $this->results->links('datatables::tailwind-simple-pagination') }}</span>
+                                {{ $this->results->links('datatables::tailwind-simple-pagination') }}
                             </div>
 
                             <div class="hidden lg:flex justify-center">
@@ -169,7 +172,7 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end text-gray-600 dark:text-gray-300">
+                        <div class="flex justify-end text-gray-600 dark:text-gray-300 mb-2 md:mb-0">
                             {{__('Results')}} {{ $this->results->firstItem() }} - {{ $this->results->lastItem() }} {{__('of')}}
                             {{ $this->results->total() }}
                         </div>
@@ -185,40 +188,8 @@
     </div>
     @endif
 </div>
-<x-modals.create-device/>
-<x-modals.edit-device/>
 <script>
-function updateModal(id) {
-    var model = $('div:contains('+id+').table-cell').parent().find('#device_models').text().trim()
-    var building = $('div:contains('+id+').table-cell').parent().find('#buildings').text().trim()
-    var serial = $('div:contains('+id+').table-cell').parent().find('#serial_number').text().trim()
-    var mac = $('div:contains('+id+').table-cell').parent().find('#mac_address').text().trim()
-
-    Array.from(document.querySelector("#edit-model").options).forEach(function(option) {
-        option.selected = false;
-
-        let text = option.text;
-
-        if (text.includes(model))
-            option.selected = true;
-    });
-
-    Array.from(document.querySelector("#edit-building").options).forEach(function(option) {
-        option.selected = false;
-
-        let text = option.text;
-
-        if (building.includes(text))
-            option.selected = true;
-    });
-
-    $('#og-asset-tag').val(id);
-    $('#edit-asset').val(id);
-    $('#edit-serial').val(serial);
-    $('#edit-mac').val(mac);
-}
-
-function deleteDevice(id) {
+function deleteItem(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to reverse this!",
@@ -229,24 +200,7 @@ function deleteDevice(id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('devices.destroy') }}",
-                data: { 
-                    '_token': '@php echo csrf_token(); @endphp',
-                    'device': id,
-                },
-                dataType: 'json',
-                success: function(response) {
-                    swal_success(response['msg']);
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 1000);
-                },
-                error: function(response) {
-                    swal_error(response.responseJSON['msg']);
-                }
-            })
+            Livewire.emit('deleteDevice', id)
         }
     })
 }

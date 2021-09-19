@@ -16,18 +16,18 @@
             <!-- Search input -->
             <div class="flex justify-center flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-blue-500">
-                    @if (request()->routeIs('buildings.index'))
+                    @if (request()->routeIs('requests.index'))
+                        <x-nav.search type="requests"/>
+                    @elseif (request()->routeIs('tickets.index'))
+                        <x-nav.search type="tickets"/>
+                    {{-- @elseif (request()->routeIs('buildings.index'))
                         <x-nav.search type="buildings"/>
                     @elseif (request()->routeIs('categories.index'))
                         <x-nav.search type="categories"/>
-                    @elseif (request()->routeIs('tickets.index'))
-                        <x-nav.search type="tickets"/>
                     @elseif (request()->routeIs('users.index'))
                         <x-nav.search type="users"/>
-                    @elseif (request()->routeIs('requests.index'))
-                        <x-nav.search type="requests"/>
                     @elseif (request()->routeIs('status.index'))
-                        <x-nav.search type="status"/>
+                        <x-nav.search type="status"/> --}}
                     @endif
                 </div>
             </div>
@@ -53,6 +53,7 @@
                 <li class="relative">
                     <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                         @click="toggleProfileMenu"
+                        @click.away="closeProfileMenu"
                         @keydown.escape="closeProfileMenu"
                         aria-label="Account"
                         aria-haspopup="true"
@@ -65,16 +66,15 @@
                         />
                     </button>
 
-                    <template x-if="isProfileMenuOpen">
+                    
                         <ul class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 
                                 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 
                                 dark:text-gray-300 dark:bg-gray-700"
                             x-transition:leave="transition ease-in duration-150"
                             x-transition:leave-start="opacity-100"
                             x-transition:leave-end="opacity-0"
-                            @click.away="closeProfileMenu"
-                            @keydown.escape="closeProfileMenu"
                             aria-label="submenu"
+                            x-show="isProfileMenuOpen"
                         >
 
                             <x-nav.dropdown-item text="Log out" icon="logout" type="button"
@@ -82,7 +82,7 @@
                             />
 
                         </ul>
-                    </template>
+                  
                 </li>
             </ul>
         </div>

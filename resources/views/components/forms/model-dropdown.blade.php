@@ -9,12 +9,13 @@
             @error($id) border-red-500 dark:border-red-400 @enderror"
             id="{{ $id }}"
             name="{{ $name }}"
+            {{ $attributes }}
     >
         @if ($val == '')
-            <option value="" selected disabled hidden>Select a {{ $label }}</option>
+            <option value="0" selected>Select a {{ $label }}</option>
         @endif
         @foreach($items as $item)
-            <option value="{{ $item->id }}" @if($val==$item->id) selected @endif>{{ $item->manufacturer }} {{ $item->name }}</option>
+            <option value="{{ $item->id }}" @if($val==$item->id) selected @endif>{{ $item->name }}</option>
         @endforeach
     </select>
 

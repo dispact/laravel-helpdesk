@@ -9,6 +9,7 @@
             @error($id) border-red-500 dark:border-red-400 @enderror"
             id="{{ $id }}"
             name="{{ $name }}"
+            {{ $attributes }}
     >
         @if ($val == '')
             <option value="" selected disabled hidden>Select a {{ $label }}</option>

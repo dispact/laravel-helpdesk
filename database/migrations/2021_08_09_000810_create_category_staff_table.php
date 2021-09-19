@@ -14,10 +14,8 @@ class CreateCategoryStaffTable extends Migration
     public function up()
     {
         Schema::create('category_staff', function (Blueprint $table) {
-            $table->integer('staff_id')->unsigned()->index();
-            $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
-            $table->integer('category_id')->unsigned()->index();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('staff_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->primary(['category_id', 'staff_id']);
         });
     }
