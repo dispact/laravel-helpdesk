@@ -50,14 +50,6 @@ class Management extends Component
                 'name' => 'required|unique:statuses,name,' . $payload['id'],
                 'color' => 'required'
             ])->validate();
-
-            // Prevent editing of Open, Pending and Closed status
-            if (in_array($payload['id'], ['1', '2', '3'])) {
-                throw ValidationException::withMessages([
-                    'name' => 'This status name can\'t be edited',
-                    'color' => 'This status color can\'t be edited'
-                ]);
-            }
           
             try {
                 // Find the status and update the name and color

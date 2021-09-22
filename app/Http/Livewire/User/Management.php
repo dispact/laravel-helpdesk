@@ -19,24 +19,7 @@ class Management extends Component
 
     public function create($payload) {
         try {
-            // Validate information
-            // Validator::make(
-            //     ['name' => $name],
-            //     ['name' => 'required|string|max:255'],
-            //     ['email' => $email],
-            //     ['email' => 'required|string|email|max:255|unique:users'],
-            //     ['email.unique' => 'Email belongs to a user'],
-            //     ['password_confirmation' => $password_confirmation],
-            //     ['password' => $password],
-            //     ['password' => [
-            //         'required',
-            //         'confirmed',
-            //         Password::defaults()
-            //     ]],
-            //     ['building' => $building],
-            //     ['building' => 'required|exists:buildings']
-            // )->validate();
-            $validated = Validator::make($payload, [
+            Validator::make($payload, [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => [
@@ -45,17 +28,17 @@ class Management extends Component
                     Password::defaults()
                 ],
                 'password_confirmation' => 'required',
-                'building' => 'required|exists:buildings,id'
+                'building' => 'nullable|int'
             ])->validate();
 
             try {
                 // Create user
-                User::create([
+                $user = User::create([
                     'name' => $payload['name'],
                     'email' => $payload['email'],
-                    'building_id' => $payload['building'],
                     'password' => Hash::make($payload['password'])
                 ]);
+                if ($payload['building']) { $user->building = $payload['building']; $user->save(); }
                 $this->dispatchBrowserEvent('successMessage', ['message' => 'User created']);
                 $this->emitTo('user.create-modal', 'show');
             } catch (\exception $e) {
@@ -72,11 +55,11 @@ class Management extends Component
     public function update($payload) {
         try {
             // Validate information and that the email doesn't exist
-            $validated = Validator::make($payload, [
+            Validator::make($payload, [
                 'id' => 'required',
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $payload['id'],
-                'building' => 'required|exists:buildings,id'
+                'building' => 'nullable|int'
             ])->validate();
             
             try {
@@ -84,7 +67,7 @@ class Management extends Component
                 $user = User::find($payload['id']);
                 $user->name = $payload['name'];
                 $user->email = $payload['email'];
-                $user->building_id = $payload['building'];
+                if ($payload['building']) $user->building_id = $payload['building'];
                 $user->save();
                 $this->dispatchBrowserEvent('successMessage', ['message' => 'User updated']);
                 $this->emitTo('user.edit-modal', 'show');

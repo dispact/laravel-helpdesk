@@ -4,7 +4,7 @@
             <a href="/">
                 <x-breeze.application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
-        </x-breeze.slot>
+        </x-slot>
 
         <!-- Validation Errors -->
         <x-breeze.auth-validation-errors class="mb-4" :errors="$errors" />
@@ -33,9 +33,12 @@
             <div class="mt-4">
                 <x-breeze.label for="password_confirmation" :value="__('Confirm Password')" />
 
-                <x-breeze.input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
+                <x-breeze.input 
+                    id="password_confirmation" 
+                    class="block mt-1 w-full"
+                    type="password"
+                    name="password_confirmation" required 
+                />
             </div>
 
             <div class="flex items-center justify-end mt-4">
