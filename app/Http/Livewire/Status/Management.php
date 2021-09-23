@@ -28,10 +28,10 @@ class Management extends Component
             try {
                 // Create the status
                 Status::create($validated);
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Status created']);
                 $this->emitTo('status.create-modal', 'show');
+                $this->emit('flashSuccess', 'Status created');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error creating status']);
+                $this->emit('flashError', 'Error trying to create status');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -57,10 +57,10 @@ class Management extends Component
                 $status->name = $payload['name'];
                 $status->color = $payload['color'];
                 $status->save();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Status updated']);
                 $this->emitTo('status.edit-modal', 'show');
+                $this->emit('flashSuccess', 'Status updated');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error updating status']);
+                $this->emit('flashError', 'Error trying to update status');
             }
 
         } catch (ValidationException $e) {
@@ -82,12 +82,12 @@ class Management extends Component
             try {
                 // Find the status and delete it
                 Status::find($id)->delete();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Status deleted']);
+                $this->emit('flashSuccess', 'Status deleted');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error deleting status']);
+                $this->emit('flashError', 'Error trying to delete status');
             }
         } catch (ValidationException $e) {
-            $this->dispatchBrowserEvent('errorMessage', ['message' => $e->errors()['id'][0]]);
+            $this->emit('flashError', $e->errors()['id'][0]);
         }
     }
 

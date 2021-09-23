@@ -46,7 +46,7 @@ class StaffManagementTest extends TestCase
                 'category' => null,
                 'building' => null
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('staff', [
             'user_id' => $user->id
@@ -67,7 +67,7 @@ class StaffManagementTest extends TestCase
                 'category' => [$category->id],
                 'building' => [$building->id]
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
     
         $this->assertDatabaseHas('category_staff', [
             'staff_id' => $staff->id
@@ -86,7 +86,7 @@ class StaffManagementTest extends TestCase
 
         Livewire::test(Management::class)
             ->call('delete', $staff->id)
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDeleted($staff);
     }

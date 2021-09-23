@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Livewire\Livewire;
+use App\Http\Livewire\Building\Management;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BuildingManagementTest extends TestCase
 {
@@ -27,5 +29,51 @@ class BuildingManagementTest extends TestCase
         $this->actingAs($this->pretendToBeStaff());
 
         $this->get('/manage/buildings')->assertSeeLivewire('building.management');
+    }
+
+    /** @test */
+    public function can_create_buildings() {
+        $this->actingAs($this->pretendToBeStaff());
+
+        Livewire::test(Management::class)
+            ->call('create', [
+                'name' => 'Test Building'
+            ])
+            ->assertEmitted('flashSuccess');
+            
+        $this->assertDatabaseHas('buildings', [
+            'name' => 'Test Building'
+        ]);
+    }
+
+    /** @test */
+    public function can_edit_buildings() {
+        $this->actingAs($this->pretendToBeStaff());
+
+        $building = \App\Models\Building::factory()->create();
+
+        Livewire::test(Management::class)
+            ->call('update', [
+                'id' => $building->id,
+                'name' => 'Updated building',
+            ])
+            ->assertEmitted('flashSuccess');
+            
+        $this->assertDatabaseHas('buildings', [
+            'name' => 'Updated building'
+        ]);
+    }
+
+    /** @test */
+    public function can_delete_buildings() {
+        $this->actingAs($this->pretendToBeStaff());
+
+        $building = \App\Models\Building::factory()->create();
+
+        Livewire::test(Management::class)
+            ->call('delete', $building->id)
+            ->assertEmitted('flashSuccess');
+            
+        $this->assertDeleted($building);
     }
 }

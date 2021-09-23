@@ -29,8 +29,8 @@ class Management extends Component
             try {
                 // Create the building
                 Building::create($validated);
-                $this->emit('flashSuccess', 'Building created!');
                 $this->emitTo('building.create-modal', 'show');
+                $this->emit('flashSuccess', 'Building created!');
             } catch (\exception $e) {
                 $this->emit('flashError', 'Error trying to create building');
             }
@@ -55,8 +55,8 @@ class Management extends Component
                 $building = Building::find($payload['id']);
                 $building->name = $payload['name'];
                 $building->save();
-                $this->emit('flashSuccess', 'Building updated!');
                 $this->emitTo('building.edit-modal', 'show');
+                $this->emit('flashSuccess', 'Building updated!');
             } catch (\exception $e) {
                 $this->emit('flashError', 'Error trying to update building');
             }

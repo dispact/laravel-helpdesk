@@ -43,7 +43,7 @@ class StatusManagementTest extends TestCase
                 'name' => 'Test Status',
                 'color' => '5'
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseCount('statuses', 1);
     }
@@ -60,7 +60,7 @@ class StatusManagementTest extends TestCase
                 'name' => 'Updated status',
                 'color' => $status->color
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('statuses', [
             'name' => 'Updated status'
@@ -75,7 +75,7 @@ class StatusManagementTest extends TestCase
 
         Livewire::test(Management::class)
             ->call('delete', $status->id)
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDeleted($status);
     }

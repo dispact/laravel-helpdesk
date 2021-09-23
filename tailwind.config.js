@@ -158,10 +158,14 @@ module.exports = {
             '65': '65%',
             'full': '100%'
         },
+        minHeight: {
+            '100': '25rem'
+        },
         maxHeight: {
             '90': '90vh',
             '34': '34rem',
-            '14': '3.3rem'
+            '14': '3.3rem',
+            '100': '25rem'
         }
     },
 

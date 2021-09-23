@@ -41,7 +41,7 @@ class CategoryManagementTest extends TestCase
             ->call('create', [
                 'name' => 'Test Category'
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('categories', [
             'name' => 'Test Category'
@@ -59,7 +59,7 @@ class CategoryManagementTest extends TestCase
                 'id' => $category->id,
                 'name' => 'Updated category',
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('categories', [
             'name' => 'Updated category'
@@ -74,7 +74,7 @@ class CategoryManagementTest extends TestCase
 
         Livewire::test(Management::class)
             ->call('delete', $category->id)
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDeleted($category);
     }

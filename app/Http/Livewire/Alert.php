@@ -9,7 +9,7 @@ class Alert extends Component
 {
     public $message;
     public $showAlert = false;
-    public $color = 'green';
+    public $type;
 
     protected $listeners = [
         'flashSuccess' => 'flashSuccess',
@@ -22,14 +22,14 @@ class Alert extends Component
 
     public function flashSuccess($message) {
         $this->message = $message;
-        $this->color = 'green';
+        $this->type = 'success';
         $this->show();
         $this->dispatchBrowserEvent('alert-timeout');
     }
     
     public function flashError($message) {
         $this->message = $message;
-        $this->color = 'red';
+        $this->type = 'error';
         $this->show();
         $this->dispatchBrowserEvent('alert-timeout');
     }

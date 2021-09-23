@@ -45,7 +45,7 @@ class UserManagementTest extends TestCase
                 'password_confirmation' => 'password',
                 'building' => null
             ])
-            ->assertDispatchedBrowserEvent('successMessage');;
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('users', [
             'email' => 'test@test.com'
@@ -65,7 +65,7 @@ class UserManagementTest extends TestCase
                 'email' => 'test@test.com',
                 'building' => $user->building_id
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('users', [
             'email' => 'test@test.com'
@@ -80,7 +80,7 @@ class UserManagementTest extends TestCase
 
         Livewire::test(Management::class)
             ->call('delete', $user->id)
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDeleted($user);
     }

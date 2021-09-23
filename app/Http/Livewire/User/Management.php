@@ -39,10 +39,10 @@ class Management extends Component
                     'password' => Hash::make($payload['password'])
                 ]);
                 if ($payload['building']) { $user->building = $payload['building']; $user->save(); }
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'User created']);
                 $this->emitTo('user.create-modal', 'show');
+                $this->emit('flashSuccess', 'User created');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error creating user']);
+                $this->emit('flashError', 'Error trying to create user');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -69,10 +69,10 @@ class Management extends Component
                 $user->email = $payload['email'];
                 if ($payload['building']) $user->building_id = $payload['building'];
                 $user->save();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'User updated']);
                 $this->emitTo('user.edit-modal', 'show');
+                $this->emit('flashSuccess', 'User updated');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error updating user']);
+                $this->emit('flashError', 'Error trying to update user');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -94,12 +94,12 @@ class Management extends Component
                 // Find the user and delete them
                 $user = User::find($id);
                 $user->delete();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'User deleted']);
+                $this->emit('flashSuccess', 'User deleted');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error deleting user']);
+                $this->emit('flashError', 'Error trying to delete user');
             }
         } catch (ValidationException $e) {
-            $this->dispatchBrowserEvent('errorMessage', ['message' => $e->errors()['id'][0]]);
+            $this->emit('flashError', $e->errors()['id'][0]);
         }
     }
 

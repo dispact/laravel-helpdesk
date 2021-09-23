@@ -44,7 +44,7 @@ class DeviceModelManagementTest extends TestCase
                 'manufacturer' => '1',
                 'type' => '1'
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('device_models', [
             'name' => 'Laptop'
@@ -65,7 +65,7 @@ class DeviceModelManagementTest extends TestCase
                 'type' => $model->type
                 
             ])
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDatabaseHas('device_models', [
             'name' => 'Updated device'
@@ -80,7 +80,7 @@ class DeviceModelManagementTest extends TestCase
 
         Livewire::test(Management::class)
             ->call('delete', $model->id)
-            ->assertDispatchedBrowserEvent('successMessage');
+            ->assertEmitted('flashSuccess');
             
         $this->assertDeleted($model);
     }
