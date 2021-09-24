@@ -73,13 +73,13 @@ class DatabaseSeeder extends Seeder
             'status_id' => '1',
             'author_id' => $user_user1->id
         ]);
-        $tickets_2 = \App\Models\Ticket::factory(2)->create([
+        $tickets_2 = \App\Models\Ticket::factory(7)->create([
             'building_id' => $building2->id,
             'category_id' => '3',
             'status_id' => '1',
             'author_id' => $user_user2->id
         ]);
-        $tickets_3 = \App\Models\Ticket::factory(1)->create([
+        $tickets_3 = \App\Models\Ticket::factory(5)->create([
             'building_id' => $building3->id,
             'category_id' => '5',
             'status_id' => '1',

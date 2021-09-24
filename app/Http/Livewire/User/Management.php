@@ -19,24 +19,7 @@ class Management extends Component
 
     public function create($payload) {
         try {
-            // Validate information
-            // Validator::make(
-            //     ['name' => $name],
-            //     ['name' => 'required|string|max:255'],
-            //     ['email' => $email],
-            //     ['email' => 'required|string|email|max:255|unique:users'],
-            //     ['email.unique' => 'Email belongs to a user'],
-            //     ['password_confirmation' => $password_confirmation],
-            //     ['password' => $password],
-            //     ['password' => [
-            //         'required',
-            //         'confirmed',
-            //         Password::defaults()
-            //     ]],
-            //     ['building' => $building],
-            //     ['building' => 'required|exists:buildings']
-            // )->validate();
-            $validated = Validator::make($payload, [
+            Validator::make($payload, [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => [
@@ -45,21 +28,24 @@ class Management extends Component
                     Password::defaults()
                 ],
                 'password_confirmation' => 'required',
-                'building' => 'required|exists:buildings,id'
+                'building' => 'nullable|int'
             ])->validate();
 
             try {
                 // Create user
-                User::create([
+                $user = User::create([
                     'name' => $payload['name'],
                     'email' => $payload['email'],
-                    'building_id' => $payload['building'],
                     'password' => Hash::make($payload['password'])
                 ]);
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'User created']);
+                if ($payload['building']) { 
+                    $user->building_id = $payload['building']; 
+                    $user->save(); 
+                }
                 $this->emitTo('user.create-modal', 'show');
+                $this->emit('flashSuccess', 'User created');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error creating user']);
+                $this->emit('flashError', 'Error trying to create user');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -72,11 +58,11 @@ class Management extends Component
     public function update($payload) {
         try {
             // Validate information and that the email doesn't exist
-            $validated = Validator::make($payload, [
+            Validator::make($payload, [
                 'id' => 'required',
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users,email,' . $payload['id'],
-                'building' => 'required|exists:buildings,id'
+                'building' => 'nullable|int'
             ])->validate();
             
             try {
@@ -84,12 +70,12 @@ class Management extends Component
                 $user = User::find($payload['id']);
                 $user->name = $payload['name'];
                 $user->email = $payload['email'];
-                $user->building_id = $payload['building'];
+                if ($payload['building']) $user->building_id = $payload['building'];
                 $user->save();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'User updated']);
                 $this->emitTo('user.edit-modal', 'show');
+                $this->emit('flashSuccess', 'User updated');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error updating user']);
+                $this->emit('flashError', 'Error trying to update user');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -111,12 +97,12 @@ class Management extends Component
                 // Find the user and delete them
                 $user = User::find($id);
                 $user->delete();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'User deleted']);
+                $this->emit('flashSuccess', 'User deleted');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error deleting user']);
+                $this->emit('flashError', 'Error trying to delete user');
             }
         } catch (ValidationException $e) {
-            $this->dispatchBrowserEvent('errorMessage', ['message' => $e->errors()['id'][0]]);
+            $this->emit('flashError', $e->errors()['id'][0]);
         }
     }
 

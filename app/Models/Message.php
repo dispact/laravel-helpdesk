@@ -11,6 +11,10 @@ class Message extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'created_at' => 'datetime:m/d/y, H:ma'
+    ];
+
     public function author() {
         return $this->belongsTo(User::class, 'author_id');
     }

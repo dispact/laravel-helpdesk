@@ -23,7 +23,7 @@ class StatusFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
-            'color' => $this->faker->randomElement(['red', 'orange', 'yellow', 'green', 'blue', 'red'])
+            'color' => $this->faker->numberBetween($min = 0, $max = 9)
         ];
     }
 }

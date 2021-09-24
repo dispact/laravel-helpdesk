@@ -14,16 +14,11 @@ use Illuminate\Http\Request;
 class TicketController extends Controller
 {
     public function index() {
-        return view('tickets.index', [
-            'tickets' => Ticket::latest('updated_at')
-                ->filter(request(['search', 'category', 'status', 'staff']))
-                ->with('category', 'building', 'status', 'author', 'staff')
-                ->paginate(10)
-                ->withQueryString()
-        ]);
+        return view('tickets.index');
     }
 
     public function show(Ticket $ticket) {
+        
         return view('tickets.show', [
             'ticket' => $ticket
         ]);

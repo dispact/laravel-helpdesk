@@ -68,10 +68,10 @@ class Management extends Component
                 if($payload['mac_address']) $device->mac_address = $payload['mac_address'];
                 $device->save();
 
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Device created']);
                 $this->emitTo('device.create-modal', 'show');
+                $this->emit('flashSuccess', 'Device created');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error creating device']);
+                $this->emit('flashError', 'Error trying to create device');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -121,11 +121,10 @@ class Management extends Component
                 $device->mac_address = $payload['mac_address'];
                 $device->save();
 
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Device updated']);
                 $this->emitTo('device.edit-modal', 'show');
+                $this->emit('flashSuccess', 'Device updated');
             } catch (\exception $e) {
-                dd($e);
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error updating model']);
+                $this->emit('flashError', 'Error trying to update device');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -144,13 +143,12 @@ class Management extends Component
 
             try {
                 Device::find($id)->delete();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Device deleted']);
+                $this->emit('flashSuccess', 'Device delete');
             } catch (\exception $e) {
-                dd($e);
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error deleting device']);
+                $this->emit('flashError', 'Error trying to delete device');
             }
         } catch (ValidationException $e) {
-            $this->dispatchBrowserEvent('errorMessage', ['message' => $e->errors()['id'][0]]);
+            $this->emit('flashError', $e->errors()['id'][0]);
         }
     }
 

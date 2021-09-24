@@ -54,6 +54,7 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body class="dark:bg-gray-900">
+        @livewire('alert')
         <x-nav.navigation>
             <h2 class="ml-6 mt-6 mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 {{ $header ?? '' }}

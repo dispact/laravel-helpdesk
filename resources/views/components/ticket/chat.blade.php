@@ -1,11 +1,9 @@
 <div class="flex antialiased text-gray-800">
-    <div class="md:flex overflow-x-hidden w-full max-h-34 sm:grid sm:grid-cols-1">
-
-        <div class="flex flex-col flex-auto pr-4">
-            <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 
-                dark:bg-gray-700 h-full">
-                <div class="flex flex-col h-full overflow-x-auto overflow-y-scroll mb-4 p-4
-                    scrollbar-thumb-blue-500 scrollbar-track-gray-100">
+    <div class="md:flex overflow-x-hidden w-full max-h-96 sm:grid sm:grid-cols-1">
+        <div class="flex flex-col flex-auto pr-0 md:pr-4">
+            <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 dark:bg-gray-700 h-full">
+                <div class="flex flex-col h-full overflow-x-auto overflow-y-scroll mb-4 p-4 min-h-100
+                    scrollbar scrollbar-thumb-blue-500 scrollbar-track-gray-100">
                     <div class="flex flex-col h-full">
                         <div class="grid grid-cols-12 gap-y-2">
                             @foreach($messages as $message)
@@ -47,7 +45,7 @@
             </div>
         </div>
     
-        <x-ticket.author/>
+        {{-- <x-ticket.author/> --}}
      
     </div>
 </div>

@@ -38,7 +38,7 @@
                 </div>
             </td>
             <td class="px-4 py-3 text-sm text-center dark:text-gray-200">
-                {{ $user->building->name }}
+                {{ $user->building->name ?? '' }}
             </td>
             <td class="px-4 py-3 text-sm text-center space-x-4 dark:text-gray-200">
                 <x-table.actions id="{{ $user->id }}" updateModal="true"/>

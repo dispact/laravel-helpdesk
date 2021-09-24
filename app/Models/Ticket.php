@@ -14,8 +14,8 @@ class Ticket extends Model
     public function scopeFilter($query, array $filters) {
         $query->when($filters['search'] ?? false, fn($query, $search) =>
             $query->where(fn($query) =>
-                $query->where('title', 'ilike', '%' . $search . '%')
-                    ->orWhere('content', 'ilike', '%' . $search . '%')
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('content', 'like', '%' . $search . '%')
             )  
         );
 
@@ -53,24 +53,24 @@ class Ticket extends Model
     
         $query->when($s, fn($query, $staff) =>
             $query->whereHas('staff', fn($query) =>
-                $query->where('staff_id', $staff)
+                $query->where('id', $staff)
             )
         );
 
-        // if (array_key_exists('building', $filters)) {
-        //     if ($filters['building'] === 'all')
-        //         $b = false;
-        //     else
-        //         $b = $filters['staff']; 
-        // } else {
-        //     $b = Staff::where('user_id', auth()->user()->id)->first()->building_id;
-        // }
+        if (array_key_exists('building', $filters)) {
+            if ($filters['building'] === 'all')
+                $b = false;
+            else
+                $b = $filters['building']; 
+        } else {
+            $b = Staff::where('user_id', auth()->user()->id)->first()->building_id ?? false;
+        }
 
-        // $query->when($b, fn($query, $building) =>
-        //     $query->whereHas('building', fn($query) =>
-        //         $query->where('id', $building)
-        //     )
-        // );
+        $query->when($b, fn($query, $building) =>
+            $query->whereHas('building', fn($query) =>
+                $query->where('id', $building)
+            )
+        );
     }
 
     public function building() {
@@ -91,5 +91,9 @@ class Ticket extends Model
 
     public function staff() {
         return $this->belongsToMany(Staff::class)->using(StaffTicket::class);
+    }
+
+    public function messages() {
+        return $this->hasMany(Message::class, 'ticket_id');
     }
 }

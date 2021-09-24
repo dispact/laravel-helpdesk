@@ -29,10 +29,10 @@ class Management extends Component
             try {
                 // Create the building
                 Building::create($validated);
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Building created']);
                 $this->emitTo('building.create-modal', 'show');
+                $this->emit('flashSuccess', 'Building created!');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error creating building']);
+                $this->emit('flashError', 'Error trying to create building');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -55,10 +55,10 @@ class Management extends Component
                 $building = Building::find($payload['id']);
                 $building->name = $payload['name'];
                 $building->save();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Building updated']);
                 $this->emitTo('building.edit-modal', 'show');
+                $this->emit('flashSuccess', 'Building updated!');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error updating building']);
+                $this->emit('flashError', 'Error trying to update building');
             }
 
         } catch (ValidationException $e) {
@@ -80,12 +80,12 @@ class Management extends Component
             // Delete the building
             try {
                 Building::find($id)->delete();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Building deleted']);
+                $this->emit('flashSuccess', 'Building deleted!');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error deleting building']);
+                $this->emit('flashError', 'Error trying to delete building');
             }
         } catch (ValidationException $e) {
-            $this->dispatchBrowserEvent('errorMessage', ['message' => $e->errors()['id'][0]]);
+            $this->emit('flashError', $e->errors()['id'][0]);
         }
     }
 

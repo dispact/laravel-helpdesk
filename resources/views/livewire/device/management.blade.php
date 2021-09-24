@@ -12,8 +12,8 @@
     </x-slot>
 
     <x-slot name="searchBar">
-        <x-filters.inventory.device-model-dropdown wire:model="model"/>
-        <x-filters.inventory.building-dropdown wire:model="building"/>
+        <x-filters.device-model-dropdown wire:model="model"/>
+        <x-filters.building-dropdown wire:model="building"/>
         <x-forms.search-input 
             wire:model.debounce.500ms="search" 
             placeholder="Search tag, serial, mac..."/>

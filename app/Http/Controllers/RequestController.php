@@ -17,13 +17,7 @@ class RequestController extends Controller
 {
     // index --> show user's tickets /requests
     public function index() {
-        return view('requests.index', [
-            'tickets' => Ticket::latest('updated_at')
-                ->filter(request(['status', 'search']))
-                ->where('author_id', auth()->user()->id)
-                ->with('category', 'building', 'status', 'author', 'staff')
-                ->paginate(10)
-        ]);
+        return view('requests.index');
     }
     // show --> show a ticket /requests/{id}
 

@@ -44,10 +44,10 @@ class Management extends Component
                 if($payload['category']) $staff->categories()->attach($payload['category']);
                 if($payload['building']) $staff->buildings()->attach($payload['building']);
 
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Staff created']);
                 $this->emitTo('staff.create-modal', 'show');
+                $this->emit('flashSuccess', 'Staff created');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error creating staff']);
+                $this->emit('flashError', 'Error trying to create staff');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -80,10 +80,10 @@ class Management extends Component
                 $staff->categories()->attach($payload['category']);
                 $staff->buildings()->attach($payload['building']);
 
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Staff updated']);
                 $this->emitTo('staff.edit-modal', 'show');
-            } catch (\excetion $e) {
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Error updating staff']);
+                $this->emit('flashSuccess', 'Staff updated');
+            } catch (\exception $e) {
+                $this->emit('flashError', 'Error trying to update staff');
             }
         } catch (ValidationException $e) {
             foreach($e->errors() as $key=>$error) {
@@ -109,12 +109,12 @@ class Management extends Component
                 $staff->delete();
                 $user->staff = false;
                 $user->save();
-                $this->dispatchBrowserEvent('successMessage', ['message' => 'Staff deleted']);
+                $this->emit('flashSuccess', 'Staff deleted');
             } catch (\exception $e) {
-                $this->dispatchBrowserEvent('errorMessage', ['message' => 'Error deleting staff']);
+                $this->emit('flashError', 'Error trying to delete staff');
             }
         } catch (ValidationException $e) {
-            $this->dispatchBrowserEvent('errorMessage', ['message' => $e->errors()['id'][0]]);
+            $this->emit('flashError', $e->errors()['id'][0]);
         }
     }
 
