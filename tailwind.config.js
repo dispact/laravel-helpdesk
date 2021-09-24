@@ -152,14 +152,14 @@ module.exports = {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
             },
-        },
-        minWidth: {
-            '35': '35%',
-            '65': '65%',
-            'full': '100%'
-        },
-        minHeight: {
-            '100': '25rem'
+            minWidth: {
+                '35': '35%',
+                '65': '65%',
+                'full': '100%'
+            },
+            minHeight: {
+                '100': '25rem'
+            },
         },
         maxHeight: {
             '90': '90vh',

@@ -1,5 +1,5 @@
 <div class="flex flex-col mt-4 md:mt-0 justify-end">
-    <div class="py-4 pl-6 pr-6 w-64 mb-4 bg-gray-100 
+    {{-- <div class="py-4 pl-6 pr-6 w-64 mb-4 bg-gray-100 
     dark:bg-gray-700 flex-shrink-0 rounded-2xl w-full md:w-1/2">
         <div class="flex flex-row items-center justify-between">
             <span class="font-bold dark:text-gray-200 text-sm">Assigned Staff</span>
@@ -39,7 +39,7 @@
         </div>
         @endforeach 
         </div>
-    </div>
+    </div> --}}
     @if (auth()->user()->is_staff())
     <div class="py-4 pl-6 pr-6 w-64 bg-gray-100 
     dark:bg-gray-700 flex-shrink-0 rounded-2xl w-full md:w-1/2">

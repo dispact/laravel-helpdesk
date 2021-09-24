@@ -1,9 +1,21 @@
 <div x-data="
 	{ 
 		show: @entangle('showAlert'), 
-		type: @entangle('type') 
+		type: @entangle('type'),
+		timer: null,
+
+		beginTimeout() {
+			this.show = true;
+			this.timer = setTimeout(() => this.show = false, 2000);
+		},
+
+		restartTimeout() {
+			clearTimeout(this.timer);
+			this.beginTimeout();
+		}
+
 	}" 
-	@alert-timeout.window="setTimeout(() => show = false, 2000);"
+	@alert-timeout.window="restartTimeout();"
 	x-cloak
 >
 	<div class="fixed inset-0 p-4 rounded-md z-50 max-h-14 max-w-xl ml-auto mr-auto mt-1"

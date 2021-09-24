@@ -24,18 +24,32 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.tickets.dashboard', [
-            'tickets' => Ticket::latest('updated_at')
-                ->filter([
-                    'search' => $this->search,
-                    'category' => $this->category,
-                    'status' => $this->status,
-                    'staff' => $this->staff,
-                    'building' => $this->building
-                ])
-                ->with('category', 'building', 'status', 'author', 'staff')
-                ->paginate(10)
-                ->withQueryString()
-        ]);
+        if(auth()->user()->is_staff())
+            return view('livewire.tickets.dashboard', [
+                'tickets' => Ticket::latest('updated_at')
+                    ->filter([
+                        'search' => $this->search,
+                        'category' => $this->category,
+                        'status' => $this->status,
+                        'staff' => $this->staff,
+                        'building' => $this->building
+                    ])
+                    ->with('category', 'building', 'status', 'author', 'staff')
+                    ->paginate(10)
+                    ->withQueryString()
+            ]);
+        else
+            return view('livewire.tickets.dashboard', [
+                'tickets' => Ticket::latest('updated_at')
+                    ->filter([
+                        'search' => $this->search,
+                        'status' => $this->status
+                    ])
+                    ->where('author_id', auth()->user()->id)
+                    ->with('category', 'building', 'status', 'author', 'staff')
+                    ->paginate(10)
+                    ->withQueryString()
+            ]);
+
     }
 }

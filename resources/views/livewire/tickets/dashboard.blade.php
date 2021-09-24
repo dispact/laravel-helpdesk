@@ -1,12 +1,22 @@
+<x-slot name="header">
+    @if(request()->user()->is_staff())
+        Ticket Dashboard
+    @else
+        My Tickets
+    @endif
+</x-slot>
+
 <div class="max-w-7xl sm:px-6 lg:px-8 pb-6">
-    <div class="ml-3 md:ml-0 mb-2 flex flex-inline items-end justify-between">
-        <div class="flex flex-inline space-x-2">
+    <div class="mb-2 md:flex md:flex-inline items-end justify-between">
+        <div class="md:flex md:flex-inline w-full md:space-x-2 space-y-2 md:space-y-0">
+            @if(request()->user()->is_staff())
             <x-filters.status-dropdown wire:model="status"/> 
             <x-filters.category-dropdown wire:model="category"/>
             <x-filters.building-dropdown wire:model="building"/>
             <x-filters.staff-dropdown wire:model="staff"/>
+            @endif
         </div>
-        <div>
+        <div class="md:mb-0 md:mt-0 mb-4 mt-4 md:w-1/3">
             <x-forms.search-input 
                 wire:model.debounce.500ms="search" 
                 placeholder="Search tickets..."
@@ -33,7 +43,11 @@
                     @foreach($tickets as $ticket)
                     <tr class="text-gray-700 dark:text-gray-400 cursor-pointer hover:bg-gray-200
                         dark:hover:bg-gray-600" 
-                        onclick="window.location='{{ route('tickets.show', $ticket->id) }}';">
+                        @if(request()->route()->named('tickets.index'))
+                        onclick="window.location='{{ route('tickets.show', $ticket->id) }}';"
+                        @else
+                        onclick="window.location='{{ route('requests.show', $ticket->id) }}';"
+                        @endif>
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
                                 <!-- Avatar with inset shadow -->

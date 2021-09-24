@@ -61,9 +61,9 @@ class Ticket extends Model
             if ($filters['building'] === 'all')
                 $b = false;
             else
-                $b = $filters['staff']; 
+                $b = $filters['building']; 
         } else {
-            $b = Staff::where('user_id', auth()->user()->id)->first()->building_id;
+            $b = Staff::where('user_id', auth()->user()->id)->first()->building_id ?? false;
         }
 
         $query->when($b, fn($query, $building) =>

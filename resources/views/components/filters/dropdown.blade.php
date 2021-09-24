@@ -3,8 +3,9 @@
       {{ $label }}
    </span>
    <select class="block min-w-35 mt-1 text-xs dark:text-gray-300 dark:border-transparent
-      dark:bg-gray-700 focus:border-blue-400 focus:outline-none focus:shadow-outline-blue 
-      dark:focus:shadow-outline-gray border px-6 py-2 rounded-lg border-gray-200 text-center"
+      dark:bg-gray-700 focus:border-blue-400 focus:outline-none 
+      dark:focus:shadow-outline-gray border px-6 py-2 rounded-lg border-gray-200 text-center
+      w-full"
       {{ $attributes }}
    >
       

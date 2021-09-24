@@ -53,9 +53,9 @@
                   >
                      {{ $header }}
                   </h3>
-                  <div class="space-y-4 mt-4 w-full">
+                  <form wire:submit.prevent="emitEvent" class="space-y-4 mt-4 w-full" x-ref="form">
                      {{ $fields }}
-                  </div>
+                  </form>
                </div>
             </div>
          </div>
@@ -64,7 +64,7 @@
                rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 
                text-base font-medium text-white hover:bg-blue-700 focus:outline-none 
                focus:ring-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-               wire:click="emitEvent"
+               type="submit"
             >
                {{ $buttonText }}
             </button>
