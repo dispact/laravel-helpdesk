@@ -38,10 +38,14 @@ class Management extends Component
                     'email' => $payload['email'],
                     'password' => Hash::make($payload['password'])
                 ]);
-                if ($payload['building']) { $user->building = $payload['building']; $user->save(); }
+                if ($payload['building']) { 
+                    $user->building_id = $payload['building']; 
+                    $user->save(); 
+                }
                 $this->emitTo('user.create-modal', 'show');
                 $this->emit('flashSuccess', 'User created');
             } catch (\exception $e) {
+                dd($e);
                 $this->emit('flashError', 'Error trying to create user');
             }
         } catch (ValidationException $e) {

@@ -23,7 +23,8 @@
          &#8203;
       </span>
 
-      <div class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left 
+      <form wire:submit.prevent="emitEvent"
+         class="inline-block align-bottom bg-white dark:bg-gray-700 rounded-lg text-left 
             overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle 
             sm:max-w-lg sm:w-full ring-gray-500 ring-2 ring-opacity-10 m-auto"
          x-show="show" 
@@ -53,9 +54,9 @@
                   >
                      {{ $header }}
                   </h3>
-                  <form wire:submit.prevent="emitEvent" class="space-y-4 mt-4 w-full" x-ref="form">
+                  <div class="space-y-4 mt-4 w-full" x-ref="form">
                      {{ $fields }}
-                  </form>
+                  </div>
                </div>
             </div>
          </div>
@@ -78,6 +79,6 @@
                Cancel
             </button>
          </div>
-      </div>
+      </form>
    </div>
 </div>  
