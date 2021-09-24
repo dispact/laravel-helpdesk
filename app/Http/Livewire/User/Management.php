@@ -45,7 +45,6 @@ class Management extends Component
                 $this->emitTo('user.create-modal', 'show');
                 $this->emit('flashSuccess', 'User created');
             } catch (\exception $e) {
-                dd($e);
                 $this->emit('flashError', 'Error trying to create user');
             }
         } catch (ValidationException $e) {
