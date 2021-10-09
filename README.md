@@ -1,6 +1,6 @@
 # Laravel Helpdesk
 
-### [View it live here](http://pact-laravel-helpdesk.herokuapp.com/)
+### [View it live here](https://helpdesk.mattlittle.dev/)
 ### Login Info
 * Admin/Staff --> admin@admin.com | password
 * User --> user@user.com | password
